@@ -24,39 +24,31 @@ class _Accueil extends State<Accueil> {
   //
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.green.shade900, // Status bar color
-      child: SafeArea(
-        left: false,
-        right: false,
-        bottom: false,
-        child: Scaffold(
-          body: Obx(
-            () => index.value == 0
-                ? Recherche()
-                : index.value == 1
-                    ? Container()
-                    : Container(),
-          ),
-          bottomNavigationBar: BottomNavigationBar(
-            onTap: (e) {
-              setState(() {
-                index.value = e;
-              });
-            },
-            currentIndex: index.value,
-            selectedItemColor: Colors.green.shade900,
-            items: [
-              BottomNavigationBarItem(
-                  icon: Icon(CupertinoIcons.search), label: "Recherche"),
-              BottomNavigationBarItem(
-                  icon: Icon(CupertinoIcons.ticket), label: "Mes tickets"),
-              BottomNavigationBarItem(
-                  icon: Icon(CupertinoIcons.profile_circled),
-                  label: "Se connecter"),
-            ],
-          ),
-        ),
+    return Scaffold(
+      body: Obx(
+        () => index.value == 0
+            ? Recherche()
+            : index.value == 1
+                ? Container()
+                : Container(),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        onTap: (e) {
+          setState(() {
+            index.value = e;
+          });
+        },
+        currentIndex: index.value,
+        selectedItemColor: Colors.green.shade900,
+        items: [
+          BottomNavigationBarItem(
+              icon: Icon(CupertinoIcons.search), label: "Recherche"),
+          BottomNavigationBarItem(
+              icon: Icon(CupertinoIcons.ticket), label: "Mes tickets"),
+          BottomNavigationBarItem(
+              icon: Icon(CupertinoIcons.profile_circled),
+              label: "Se connecter"),
+        ],
       ),
     );
   }

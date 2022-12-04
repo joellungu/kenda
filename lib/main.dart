@@ -28,6 +28,11 @@ class MyApp extends StatelessWidget {
         // floatingActionButtonTheme: FloatingActionButtonThemeData(
         //     backgroundColor: Colors.yellow,
         //     sizeConstraints: BoxConstraints.loose(Size(40, 40))),
+        colorScheme: ColorScheme.light(
+          primary: Colors.indigo.shade900, // <-- SEE HERE
+          onPrimary: Colors.white, // <-- SEE HERE
+          //onSurface: Color.fromARGB(255, 66, 125, 145), // <-- SEE HERE
+        ),
         bottomSheetTheme: const BottomSheetThemeData(
           modalBackgroundColor: Colors.transparent,
           backgroundColor: Colors.white,
@@ -39,7 +44,6 @@ class MyApp extends StatelessWidget {
           ),
         ),
         primaryColor: Colors.blue,
-
         backgroundColor: Colors.grey.shade200,
         appBarTheme: AppBarTheme(
           color: Colors.grey.shade200,
@@ -68,7 +72,6 @@ class MyApp extends StatelessWidget {
           color: Colors.blue.shade700,
           linearMinHeight: 1.5,
         ),
-
         textButtonTheme: TextButtonThemeData(
           style: TextButton.styleFrom(
             primary: Colors.blue,
@@ -78,7 +81,7 @@ class MyApp extends StatelessWidget {
           color: Colors.white,
           elevation: 1,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20),
+            borderRadius: BorderRadius.circular(0),
           ),
         ),
         elevatedButtonTheme: ElevatedButtonThemeData(

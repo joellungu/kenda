@@ -1,16 +1,19 @@
 import 'package:get/get_connect.dart';
 
 class Connexion extends GetConnect {
+  static String url = "10.0.2.2:8080";
+  //static String url = "0.0.0.0:8080";
+
   Future<Response> getE(String path) async {
     return get(
-      path,
+      "$url/$path",
     );
   }
 
   //
   Future<Response> postE(String path, Map data) async {
     return post(
-      path,
+      "$url/$path",
       data,
     );
   }
@@ -18,7 +21,7 @@ class Connexion extends GetConnect {
   //
   Future<Response> putE(String path, Map data) async {
     return put(
-      path,
+      "$url/$path",
       data,
     );
   }
@@ -26,7 +29,7 @@ class Connexion extends GetConnect {
   //
   Future<Response> deleteE(String path) async {
     return delete(
-      path,
+      "$url/$path",
     );
   }
   //

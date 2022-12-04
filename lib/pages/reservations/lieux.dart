@@ -2,16 +2,12 @@ import 'package:flutter/material.dart';
 
 class CustomSearchDelegate extends SearchDelegate {
   // Demo list to show querying
-  List<String> searchTerms = [
-    "Apple",
-    "Banana",
-    "Mango",
-    "Pear",
-    "Watermelons",
-    "Blueberries",
-    "Pineapples",
-    "Strawberries"
-  ];
+  List<String> searchTerms = [];
+  CustomSearchDelegate() {
+    for (var i = 0; i < 90; i++) {
+      searchTerms.add("$i");
+    }
+  }
 
   // first overwrite to
   // clear the search text

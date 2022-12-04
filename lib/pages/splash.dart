@@ -7,6 +7,7 @@ import 'package:kenda/pages/profil/paiement/mode_paiement.dart';
 import 'package:kenda/pages/profil/profil.dart';
 import 'package:kenda/pages/reservations/reservation.dart';
 import 'package:kenda/widgets/carte_bus.dart';
+import 'package:kenda/widgets/dessin.dart';
 
 import '';
 import 'package:flutter/material.dart';
@@ -17,7 +18,10 @@ import 'application_controller.dart';
 import 'login/auth.dart';
 import 'login/login_controller.dart';
 import 'notifications/notification_controller.dart';
+import 'recherche/lieu_controller.dart';
 import 'recherche/rechercher_controller.dart';
+import 'recherche/resultat.dart';
+import 'recherche/resultat_controller.dart';
 import 'reservations/details/details.dart';
 import 'reservations/formulaire/formulaire.dart';
 
@@ -35,17 +39,29 @@ class Splash extends StatelessWidget {
   NotificationController notificationController =
       Get.put(NotificationController());
   //
+  LieuController lieuController = Get.put(LieuController());
+  //
+  ResultatController resultatController = Get.put(ResultatController());
+  //
   Splash() {
     Timer(const Duration(seconds: 3), () {
-      Get.off(Accueil());
+      Get.off(Details());
     });
   }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: Container(
-      alignment: Alignment.center,
-      child: const Text("..."),
-    ));
+            alignment: Alignment.center,
+            child: ClipPath(
+              child: Container(
+                height: 600,
+                width: 200,
+                color: Colors.indigo.shade900,
+              ),
+              clipper: OsIcons(),
+            )
+            //const Text("..."),
+            ));
   }
 }
