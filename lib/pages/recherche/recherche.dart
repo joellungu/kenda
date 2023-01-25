@@ -1,10 +1,12 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:kenda/pages/recherche/lieu.dart';
 import 'package:kenda/pages/recherche/lieu_controller.dart';
-import 'package:kenda/pages/reservations/lieux.dart';
+import 'package:kenda/pages/recherche/resultat.dart';
 import 'package:kenda/utils/utils.dart';
+import 'package:kenda/widgets/modal.dart';
 
 class Recherche extends StatefulWidget {
   @override
@@ -110,13 +112,78 @@ class _Recherche extends State<Recherche> {
                                       IconButton(
                                         onPressed: () {
                                           //
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(
+                                            SnackBar(
+                                              backgroundColor: Colors.white,
+                                              content: Container(
+                                                height: 120,
+                                                decoration: const BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.only(
+                                                    topLeft:
+                                                        Radius.circular(10),
+                                                    topRight:
+                                                        Radius.circular(10),
+                                                  ),
+                                                ),
+                                                child: Column(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: const [
+                                                    ListTile(
+                                                      leading: Icon(Icons
+                                                          .help_outline_outlined),
+                                                      title:
+                                                          Text("Aide et FAQ"),
+                                                    ),
+                                                    ListTile(
+                                                      leading: Icon(
+                                                          CupertinoIcons
+                                                              .info_circle),
+                                                      title: Text(
+                                                          "À propos de l'application"),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                          );
+                                          //showModalBottomSheet(context: context, builder: builder)
+                                          // showBottomSheet(
+                                          //   context: context,
+                                          //   builder: (c) {
+                                          //     return SizedBox(
+                                          //       height: 100,
+                                          //       child: Column(
+                                          //         mainAxisAlignment:
+                                          //             MainAxisAlignment.center,
+                                          //         children: const [
+                                          //           ListTile(
+                                          //             leading: Icon(Icons
+                                          //                 .help_outline_outlined),
+                                          //             title:
+                                          //                 Text("Aide et FAQ"),
+                                          //           ),
+                                          //           ListTile(
+                                          //             leading: Icon(
+                                          //                 CupertinoIcons
+                                          //                     .info_circle),
+                                          //             title: Text(
+                                          //                 "À propos de l'application"),
+                                          //           ),
+                                          //         ],
+                                          //       ),
+                                          //     );
+                                          //   },
+                                          // );
                                         },
-                                        icon: Icon(
+                                        icon: const Icon(
                                           Icons.help,
                                           color: Colors.white,
                                         ),
                                       ),
-                                      Text(
+                                      const Text(
                                         "Horaires et billets",
                                         style: TextStyle(
                                           color: Colors.white,
@@ -140,23 +207,8 @@ class _Recherche extends State<Recherche> {
                                   ElevatedButton(
                                     onPressed: () {
                                       //
-                                      showModalBottomSheet(
-                                        context: context,
-                                        isScrollControlled: true,
-                                        builder: (c) {
-                                          return Container(
-                                            height: Get.size.height / 1.05,
-                                            decoration: const BoxDecoration(
-                                              color: Colors.white,
-                                              borderRadius: BorderRadius.only(
-                                                topLeft: Radius.circular(20),
-                                                topRight: Radius.circular(20),
-                                              ),
-                                            ),
-                                            child: Lieu(0),
-                                          );
-                                        },
-                                      );
+                                      showSimpleModal(Lieu(0), context);
+
                                       //
                                     },
                                     style: ButtonStyle(
@@ -219,23 +271,7 @@ class _Recherche extends State<Recherche> {
                                   ),
                                   ElevatedButton(
                                     onPressed: () {
-                                      showModalBottomSheet(
-                                        context: context,
-                                        isScrollControlled: true,
-                                        builder: (c) {
-                                          return Container(
-                                            height: Get.size.height / 1.05,
-                                            decoration: const BoxDecoration(
-                                              color: Colors.white,
-                                              borderRadius: BorderRadius.only(
-                                                topLeft: Radius.circular(20),
-                                                topRight: Radius.circular(20),
-                                              ),
-                                            ),
-                                            child: Lieu(1),
-                                          );
-                                        },
-                                      );
+                                      showSimpleModal(Lieu(1), context);
                                     },
                                     style: ButtonStyle(
                                       backgroundColor:
@@ -321,7 +357,7 @@ class _Recherche extends State<Recherche> {
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsets.only(right: 5),
+                              padding: const EdgeInsets.only(right: 10),
                               child: Align(
                                 alignment: Alignment.centerRight,
                                 child: InkWell(
@@ -347,7 +383,7 @@ class _Recherche extends State<Recherche> {
                                     child: RotatedBox(
                                       quarterTurns: 45,
                                       child: Icon(
-                                        Icons.sync_alt,
+                                        Icons.sync,
                                         color: Colors.grey.shade500,
                                       ),
                                     ),
@@ -365,6 +401,7 @@ class _Recherche extends State<Recherche> {
                       child: SizedBox(
                         height: 300,
                         child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
                             const SizedBox(
                               height: 20,
@@ -606,8 +643,11 @@ class _Recherche extends State<Recherche> {
                             ),
                             ElevatedButton(
                               onPressed: () {
+                                Get.to(Resultat({}));
                                 if (lieuController.depart.value.isNotEmpty &&
                                     lieuController.arrive.value.isNotEmpty) {
+                                  //
+                                  Get.to(Resultat({}));
                                   //
                                 } else {
                                   //
@@ -622,7 +662,7 @@ class _Recherche extends State<Recherche> {
                               },
                               style: ButtonStyle(
                                 backgroundColor: MaterialStateProperty.all(
-                                  Colors.green.shade800,
+                                  Colors.green.shade700,
                                 ),
                                 elevation: MaterialStateProperty.all(0),
                               ),
@@ -638,7 +678,17 @@ class _Recherche extends State<Recherche> {
                                 ),
                                 width: Get.size.width / 1.2,
                               ),
-                            )
+                            ),
+                            Align(
+                              alignment: Alignment.centerLeft,
+                              child: Padding(
+                                padding: EdgeInsets.only(left: 20, top: 20),
+                                child: Text(
+                                  "Dernière recherche effectué",
+                                  style: TextStyle(fontWeight: FontWeight.w700),
+                                ),
+                              ),
+                            ),
                           ],
                         ),
                       ),
@@ -646,31 +696,14 @@ class _Recherche extends State<Recherche> {
                     SliverList(
                       delegate: SliverChildBuilderDelegate(
                         (BuildContext context, int index) {
-                          return Container(
-                            color: index.isOdd ? Colors.white : Colors.black12,
-                            height: 70.0,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Expanded(
-                                  flex: 7,
-                                  child: Container(),
-                                ),
-                                const Expanded(
-                                  flex: 2,
-                                  child: RotatedBox(
-                                    quarterTurns: 45,
-                                    child: Icon(
-                                      Icons.sync_alt,
-                                      color: Colors.black,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          );
+                          return HistoriqueRecherche();
                         },
-                        childCount: 7,
+                        childCount: 3,
+                      ),
+                    ),
+                    const SliverToBoxAdapter(
+                      child: SizedBox(
+                        height: 200,
                       ),
                     ),
                   ],
@@ -720,23 +753,106 @@ class _Recherche extends State<Recherche> {
   }
 }
 
-class Filtre extends StatefulWidget {
+class HistoriqueRecherche extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return _Filtre();
+    return _HistoriqueRecherche();
   }
 }
 
-class _Filtre extends State<Filtre> {
+class _HistoriqueRecherche extends State<HistoriqueRecherche> {
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      padding: const EdgeInsets.all(20),
-      children: [
-        Text("Type"),
-        Text("Tranche horaire"),
-        Text("Prix"),
-      ],
+    return InkWell(
+      onTap: () {
+        //
+        Get.to(Resultat({}));
+      },
+      child: Container(
+        margin: const EdgeInsets.only(
+          top: 10,
+          left: 10,
+          right: 10,
+        ),
+        //color: index.isOdd ? Colors.white : Colors.black12,
+        decoration: BoxDecoration(
+          border: Border.all(color: Colors.grey.shade300),
+          borderRadius: BorderRadius.circular(3),
+        ),
+        height: 60.0,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Expanded(
+              flex: 1,
+              child: RotatedBox(
+                quarterTurns: 90,
+                child: IconButton(
+                  icon: Icon(
+                    Icons.sync,
+                    color: Colors.grey.shade800,
+                    size: 30,
+                  ),
+                  onPressed: () {
+                    //
+                  },
+                ),
+              ),
+            ),
+            Expanded(
+              flex: 6,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    flex: 7,
+                    child: Container(
+                      alignment: Alignment.centerLeft,
+                      child: RichText(
+                        text: TextSpan(
+                          text: "Kinshasa\n",
+                          children: [
+                            TextSpan(
+                              text: "Kassangulu",
+                              style: TextStyle(
+                                fontSize: 17,
+                                fontWeight: FontWeight.normal,
+                                color: Colors.black,
+                              ),
+                            ),
+                          ],
+                          style: TextStyle(
+                            fontSize: 17,
+                            fontWeight: FontWeight.normal,
+                            color: Colors.black,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    flex: 3,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        // Icon(
+                        //   Icons.search,
+                        //   size: 35,
+                        //   color: Colors.grey.shade600,
+                        // ),
+                        Icon(
+                          Icons.arrow_forward_ios,
+                          size: 13,
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

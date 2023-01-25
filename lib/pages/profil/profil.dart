@@ -1,84 +1,124 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:kenda/pages/profil/nous_contacter/nous_contacter.dart';
-import 'package:kenda/pages/profil/paiement/mode_paiement.dart';
-
-import 'infos_personnel.dart/infos_personnel.dart';
 
 class Profil extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.blue, // Status bar color
+      color: Colors.indigo.shade900, // Status bar color
       child: SafeArea(
         left: false,
         right: false,
         bottom: false,
         child: Scaffold(
           appBar: AppBar(
-            title: const Text("Profil"),
-            leading: IconButton(
-              onPressed: () {
-                //
-                Get.back();
-                //
-              },
-              icon: Icon(
-                Icons.arrow_back,
-                color: Colors.blue.shade700,
+            centerTitle: false,
+            title: const Text(
+              "Profil",
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 20,
+                fontWeight: FontWeight.normal,
               ),
             ),
+            backgroundColor: Colors.indigo.shade900,
           ),
-          body: ListView(
-            padding: EdgeInsets.all(10),
-            children: [
-              InkWell(
-                onTap: () {
-                  //
-                  Get.to(InfosPersonnel());
-                },
-                child: menuContent("Information personnel",
-                    "accounts _ user, users, profile, account, man, people, website, browser, webpage@2x.png"),
-              ),
-              InkWell(
-                onTap: () {
-                  //
-                  Get.to(ModePaiement());
-                },
-                child: menuContent("Mode de paiement",
-                    "finance _ savings, saving, bank, piggy bank, coin, coins, interest, man, people@2x.png"),
-              ),
-              InkWell(
-                onTap: () {
-                  //
-                },
-                child: menuContent("Termes et conditions d'utilisation",
-                    "security _ shield, protection, safety, insurance, man, people@2x.png"),
-              ),
-              InkWell(
-                onTap: () {
-                  //
-                },
-                child: menuContent("Politique de confidencialité",
-                    "security _ lock, key, login, safety, protection, padlock, locked, unlock@2x.png"),
-              ),
-              // InkWell(
-              //   onTap: () {
-              //     //
-              //   },
-              //   child: menuContent("Nos partenaires",
-              //       "accounts _ user, users, profile, account, man, people, website, browser, webpage@2x.png"),
-              // ),
-              InkWell(
-                onTap: () {
-                  //
-                  Get.to(NousContacetr());
-                },
-                child: menuContent("Nous contacter",
-                    "emails, communication _ email, mail, mailbox, postage, letter, send, man, people@2x.png"),
-              ),
-            ],
+          body: Padding(
+            padding: const EdgeInsets.all(0),
+            child: Column(
+              children: [
+                // const ListTile(
+                //   title: Text(
+                //     "Kenda Business",
+                //     style: TextStyle(
+                //       color: Colors.black,
+                //       fontSize: 20,
+                //       fontWeight: FontWeight.w900,
+                //     ),
+                //   ),
+                // ),
+                // Padding(
+                //   padding: EdgeInsets.only(left: 20),
+                //   child: Column(
+                //     children: const [
+                //       ListTile(
+                //         leading: Icon(CupertinoIcons.profile_circled),
+                //         title: Text("Mr. Jean Didie Mangombe"),
+                //         subtitle: Text("Chauffeur"),
+                //       ),
+                //       ListTile(
+                //         leading: Icon(CupertinoIcons.profile_circled),
+                //         title: Text("Evariste Mwamba"),
+                //         subtitle: Text("Receptionniste"),
+                //       ),
+                //     ],
+                //   ),
+                // ),
+                // Divider(),
+                const ListTile(
+                  title: Text(
+                    "Compte",
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 20,
+                      fontWeight: FontWeight.w900,
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(left: 20),
+                  child: Column(
+                    children: const [
+                      ListTile(
+                        leading: Icon(CupertinoIcons.profile_circled),
+                        title: Text("lungujoel138@gmail.com"),
+                      ),
+                      ListTile(
+                        leading: Icon(CupertinoIcons.mail),
+                        title: Text("Messages"),
+                        subtitle: Text("Aucun message"),
+                      ),
+                    ],
+                  ),
+                ),
+                Divider(),
+                ListTile(
+                  title: Text(
+                    "Aide",
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 20,
+                      fontWeight: FontWeight.w900,
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(left: 20),
+                  child: Column(
+                    children: const [
+                      ListTile(
+                        leading: Icon(Icons.chat_outlined),
+                        title: Text("Envoyer un commentaire"),
+                        subtitle: Divider(),
+                      ),
+                      ListTile(
+                        leading: Icon(Icons.help_outline_outlined),
+                        title: Text("Aide et FAQ"),
+                        subtitle: Divider(),
+                      ),
+                      ListTile(
+                        leading: Icon(CupertinoIcons.info_circle),
+                        title: Text("À propos de l'application"),
+                        subtitle: Divider(),
+                      ),
+                    ],
+                  ),
+                ),
+                Divider(),
+              ],
+            ),
           ),
         ),
       ),

@@ -8,7 +8,6 @@ import 'package:kenda/pages/notifications/notifications.dart';
 import 'package:kenda/pages/profil/profil.dart';
 import 'package:kenda/pages/recherche/recherche.dart';
 import 'package:kenda/pages/reservations/reservation.dart';
-
 import 'accueil_controller.dart';
 
 class Accueil extends StatefulWidget {
@@ -29,8 +28,8 @@ class _Accueil extends State<Accueil> {
         () => index.value == 0
             ? Recherche()
             : index.value == 1
-                ? Container()
-                : Container(),
+                ? Historique()
+                : Profil(),
       ),
       bottomNavigationBar: BottomNavigationBar(
         onTap: (e) {
@@ -39,7 +38,7 @@ class _Accueil extends State<Accueil> {
           });
         },
         currentIndex: index.value,
-        selectedItemColor: Colors.green.shade900,
+        selectedItemColor: Colors.indigo.shade900,
         items: [
           BottomNavigationBarItem(
               icon: Icon(CupertinoIcons.search), label: "Recherche"),

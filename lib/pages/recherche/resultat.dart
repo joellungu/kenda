@@ -2,7 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kenda/pages/recherche/infos.dart';
+import 'package:kenda/pages/reservations/details/details.dart';
 import 'package:kenda/utils/utils.dart';
+import 'package:kenda/widgets/modal.dart';
 
 import 'resultat_controller.dart';
 
@@ -29,6 +31,14 @@ class Resultat extends GetView<ResultatController> {
             snap: false,
             floating: false,
             centerTitle: false,
+            leading: IconButton(
+              onPressed: () {
+                //
+                Get.back();
+                //
+              },
+              icon: Icon(Icons.arrow_back),
+            ),
             // title: const Text(
             //   "Choix du bus",
             //   style: TextStyle(
@@ -57,18 +67,16 @@ class Resultat extends GetView<ResultatController> {
                       children: [
                         Expanded(
                           flex: 8,
-                          child: Container(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: const [
-                                Icon(
-                                  CupertinoIcons.bus,
-                                  size: 35,
-                                  color: Colors.white,
-                                ),
-                                Text("Bus")
-                              ],
-                            ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: const [
+                              Icon(
+                                CupertinoIcons.bus,
+                                size: 35,
+                                color: Colors.white,
+                              ),
+                              Text("Bus")
+                            ],
                           ),
                         ),
                         Expanded(
@@ -88,21 +96,13 @@ class Resultat extends GetView<ResultatController> {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   const SizedBox(
-                    height: 5,
+                    height: 7,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      IconButton(
-                        onPressed: () {},
-                        icon: const Icon(
-                          Icons.arrow_back,
-                          color: Colors.white,
-                          size: 20,
-                        ),
-                      ),
+                    children: const [
                       SizedBox(
-                        width: 10,
+                        width: 50,
                       ),
                       Text(
                         "Choix du bus",
@@ -173,7 +173,7 @@ class Resultat extends GetView<ResultatController> {
             delegate: SliverChildBuilderDelegate(
               (BuildContext context, int index) {
                 return Card(
-                  child: Container(
+                  child: SizedBox(
                     //color: index.isOdd ? Colors.white : Colors.black12,
                     height: 170.0,
                     child: Column(
@@ -187,137 +187,145 @@ class Resultat extends GetView<ResultatController> {
                         //     : Container(),
                         Expanded(
                           flex: 7,
-                          child: Column(
-                            children: [
-                              Expanded(
-                                flex: 5,
-                                child: Row(
-                                  children: [
-                                    Expanded(
-                                      flex: 2,
-                                      child: Container(
-                                        alignment: Alignment.center,
-                                        child: RichText(
-                                          text: TextSpan(
-                                            text: "11:50\n",
-                                            children: [
-                                              TextSpan(
-                                                text: "Départ",
-                                                style: TextStyle(
-                                                  color: Colors.black,
-                                                  fontSize: 15,
-                                                  fontWeight: FontWeight.normal,
-                                                ),
-                                              )
-                                            ],
-                                            style: TextStyle(
-                                              fontSize: 20,
-                                              fontWeight: FontWeight.w900,
-                                              color: Colors.black,
-                                            ),
-                                          ),
-                                        ),
-                                        // color: Colors.green,
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsets.only(top: 20),
-                                      child: Align(
-                                        alignment: Alignment.topCenter,
-                                        child: Icon(
-                                          Icons.arrow_forward,
-                                          size: 13,
-                                          color: Colors.black,
-                                        ),
-                                      ),
-                                    ),
-                                    Expanded(
-                                      flex: 2,
-                                      child: Container(
-                                        alignment: Alignment.center,
-                                        //color: Colors.green,
-                                        child: RichText(
-                                          text: TextSpan(
-                                            text: "16:50\n",
-                                            children: [
-                                              TextSpan(
-                                                text: "Départ",
-                                                style: TextStyle(
-                                                  color: Colors.black,
-                                                  fontSize: 15,
-                                                  fontWeight: FontWeight.normal,
-                                                ),
-                                              ),
-                                            ],
-                                            style: TextStyle(
-                                              fontSize: 20,
-                                              fontWeight: FontWeight.w900,
-                                              color: Colors.black,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    Expanded(
-                                      flex: 5,
-                                      child: Container(
-                                        padding: EdgeInsets.only(
-                                          top: 13,
-                                        ),
-                                        alignment: Alignment.topCenter,
-                                        //color: Colors.blue,
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.end,
-                                          children: [
-                                            const Text(
-                                              "37000 Fc ",
+                          child: InkWell(
+                            onTap: () {
+                              //
+                              Get.to(Details());
+                            },
+                            child: Column(
+                              children: [
+                                Expanded(
+                                  flex: 5,
+                                  child: Row(
+                                    children: [
+                                      Expanded(
+                                        flex: 2,
+                                        child: Container(
+                                          alignment: Alignment.center,
+                                          child: RichText(
+                                            text: TextSpan(
+                                              text: "11:50\n",
+                                              children: [
+                                                TextSpan(
+                                                  text: "Départ",
+                                                  style: TextStyle(
+                                                    color: Colors.black,
+                                                    fontSize: 15,
+                                                    fontWeight:
+                                                        FontWeight.normal,
+                                                  ),
+                                                )
+                                              ],
                                               style: TextStyle(
                                                 fontSize: 20,
-                                                fontWeight: FontWeight.w500,
+                                                fontWeight: FontWeight.w900,
+                                                color: Colors.black,
                                               ),
                                             ),
-                                            Icon(
-                                              Icons.arrow_forward_ios,
-                                              size: 13,
-                                              color: Colors.green.shade800,
-                                            )
-                                          ],
+                                          ),
+                                          // color: Colors.green,
                                         ),
                                       ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              Expanded(
-                                flex: 2,
-                                child: Container(
-                                  padding: const EdgeInsets.only(
-                                      left: 15, right: 10),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text(
-                                        "12 Places disponible",
-                                        style: TextStyle(
-                                          color: Colors.grey.shade600,
-                                          fontWeight: FontWeight.w900,
+                                      Padding(
+                                        padding: EdgeInsets.only(top: 20),
+                                        child: Align(
+                                          alignment: Alignment.topCenter,
+                                          child: Icon(
+                                            Icons.arrow_forward,
+                                            size: 13,
+                                            color: Colors.black,
+                                          ),
                                         ),
                                       ),
-                                      Row(
-                                        children: [
-                                          const Text("LOGO"),
-                                        ],
+                                      Expanded(
+                                        flex: 2,
+                                        child: Container(
+                                          alignment: Alignment.center,
+                                          //color: Colors.green,
+                                          child: RichText(
+                                            text: TextSpan(
+                                              text: "16:50\n",
+                                              children: [
+                                                TextSpan(
+                                                  text: "Départ",
+                                                  style: TextStyle(
+                                                    color: Colors.black,
+                                                    fontSize: 15,
+                                                    fontWeight:
+                                                        FontWeight.normal,
+                                                  ),
+                                                ),
+                                              ],
+                                              style: TextStyle(
+                                                fontSize: 20,
+                                                fontWeight: FontWeight.w900,
+                                                color: Colors.black,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      Expanded(
+                                        flex: 5,
+                                        child: Container(
+                                          padding: EdgeInsets.only(
+                                            top: 13,
+                                          ),
+                                          alignment: Alignment.topCenter,
+                                          //color: Colors.blue,
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.end,
+                                            children: [
+                                              const Text(
+                                                "37000 Fc ",
+                                                style: TextStyle(
+                                                  fontSize: 20,
+                                                  fontWeight: FontWeight.w500,
+                                                ),
+                                              ),
+                                              Icon(
+                                                Icons.arrow_forward_ios,
+                                                size: 13,
+                                                color: Colors.green.shade800,
+                                              )
+                                            ],
+                                          ),
+                                        ),
                                       ),
                                     ],
                                   ),
                                 ),
-                              )
-                            ],
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                                Expanded(
+                                  flex: 2,
+                                  child: Container(
+                                    padding: const EdgeInsets.only(
+                                        left: 15, right: 10),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          "12 Places disponible",
+                                          style: TextStyle(
+                                            color: Colors.grey.shade600,
+                                            fontWeight: FontWeight.w900,
+                                          ),
+                                        ),
+                                        Row(
+                                          children: [
+                                            const Text("LOGO"),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                )
+                              ],
+                            ),
                           ),
                         ),
                         Container(
@@ -329,23 +337,7 @@ class Resultat extends GetView<ResultatController> {
                           child: InkWell(
                             onTap: () {
                               //
-                              showModalBottomSheet(
-                                context: context,
-                                isScrollControlled: true,
-                                builder: (c) {
-                                  return Container(
-                                    height: Get.size.height / 1.05,
-                                    decoration: const BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.only(
-                                        topLeft: Radius.circular(0),
-                                        topRight: Radius.circular(0),
-                                      ),
-                                    ),
-                                    child: Infos({}),
-                                  );
-                                },
-                              );
+                              showSimpleModal(Infos({}), context);
                             },
                             child: Container(
                               padding: const EdgeInsets.only(
@@ -388,7 +380,7 @@ class Resultat extends GetView<ResultatController> {
                   ),
                 );
               },
-              childCount: 14,
+              childCount: 3,
             ),
           ),
         ],

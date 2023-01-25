@@ -5,18 +5,24 @@ class CarteBus extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: MyWidget(),
     );
   }
 }
 
 class MyWidget extends StatelessWidget {
+  double taille = 45;
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: Get.size.height,
+      height: Get.size.height / 1.1,
       width: Get.size.width,
-      padding: const EdgeInsets.all(10),
+      padding: const EdgeInsets.only(
+        left: 20,
+        right: 20,
+        top: 5,
+      ),
       decoration: BoxDecoration(
         //color: Colors.lightBlue,
         border: Border.all(
@@ -33,9 +39,9 @@ class MyWidget extends StatelessWidget {
             child: Align(
               alignment: Alignment.topLeft,
               child: Container(
-                height: 70,
+                height: 40,
                 width: 70,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   color: Colors.blue,
                   borderRadius: BorderRadius.only(
                     topRight: Radius.circular(40),
@@ -52,7 +58,7 @@ class MyWidget extends StatelessWidget {
             child: Align(
               alignment: Alignment.topRight,
               child: Container(
-                height: 70,
+                height: 40,
                 width: 70,
                 decoration: const BoxDecoration(
                   color: Colors.blue,
@@ -67,7 +73,7 @@ class MyWidget extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(top: 90),
+            padding: const EdgeInsets.only(top: 40),
             child: Align(
               alignment: Alignment.topCenter,
               child: Container(
@@ -82,9 +88,9 @@ class MyWidget extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     Expanded(
-                      flex: 5,
+                      flex: 4,
                       child: Column(
-                        children: List.generate(11, (index) {
+                        children: List.generate(10, (index) {
                           RxBool c1 = false.obs;
                           RxBool c2 = false.obs;
                           RxBool c3 = false.obs;
@@ -98,32 +104,12 @@ class MyWidget extends StatelessWidget {
                                   flex: 4,
                                   child: InkWell(
                                     onTap: () {
-                                      c1.value = !c1.value;
-                                    },
-                                    child: Obx(
-                                      () => Icon(
-                                        Icons.chair_outlined,
-                                        size: 50,
-                                        color: c1.value
-                                            ? Colors.blue
-                                            : Colors.black,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: 20,
-                                ),
-                                Expanded(
-                                  flex: 4,
-                                  child: InkWell(
-                                    onTap: () {
                                       c2.value = !c2.value;
                                     },
                                     child: Obx(
                                       () => Icon(
                                         Icons.chair_outlined,
-                                        size: 50,
+                                        size: taille,
                                         color: c2.value
                                             ? Colors.blue
                                             : Colors.black,
@@ -143,7 +129,7 @@ class MyWidget extends StatelessWidget {
                                     child: Obx(
                                       () => Icon(
                                         Icons.chair_outlined,
-                                        size: 50,
+                                        size: taille,
                                         color: c3.value
                                             ? Colors.blue
                                             : Colors.black,
@@ -161,9 +147,9 @@ class MyWidget extends StatelessWidget {
                       width: 40,
                     ),
                     Expanded(
-                      flex: 3,
+                      flex: 4,
                       child: Column(
-                        children: List.generate(11, (index) {
+                        children: List.generate(10, (index) {
                           RxBool c1 = false.obs;
                           RxBool c2 = false.obs;
 
@@ -181,7 +167,7 @@ class MyWidget extends StatelessWidget {
                                     child: Obx(
                                       () => Icon(
                                         Icons.chair_outlined,
-                                        size: 50,
+                                        size: taille,
                                         color: c1.value
                                             ? Colors.blue
                                             : Colors.black,
@@ -201,7 +187,7 @@ class MyWidget extends StatelessWidget {
                                     child: Obx(
                                       () => Icon(
                                         Icons.chair_outlined,
-                                        size: 50,
+                                        size: taille,
                                         color: c2.value
                                             ? Colors.blue
                                             : Colors.black,

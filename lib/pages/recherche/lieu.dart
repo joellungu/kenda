@@ -63,7 +63,10 @@ class _Lieu extends State<Lieu> {
                   Get.back();
                   //
                 },
-                icon: const Icon(Icons.close),
+                icon: const Icon(
+                  Icons.close,
+                  size: 40,
+                ),
               ),
               widget.c == 0
                   ? const Text(
@@ -74,7 +77,14 @@ class _Lieu extends State<Lieu> {
                         fontWeight: FontWeight.bold,
                       ),
                     )
-                  : const Text("Lieu d'arrivée"),
+                  : const Text(
+                      "Lieu d'arrivée",
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
               const Icon(
                 Icons.help,
                 color: Colors.white,
@@ -91,6 +101,7 @@ class _Lieu extends State<Lieu> {
                 SizedBox(
                   height: 50,
                   child: TextField(
+                    autofocus: true,
                     onChanged: (t) {
                       //
                       channel.sink.add(t);

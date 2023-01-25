@@ -1,10 +1,6 @@
-import 'dart:convert';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:kenda/pages/recherche/lieu_controller.dart';
 import 'package:kenda/utils/connexion.dart';
 import 'package:kenda/widgets/dessin.dart';
@@ -200,7 +196,7 @@ class _Trajectoire extends State<Trajectoire> {
           children: [
             Container(
               alignment: Alignment.center,
-              color: Colors.white,
+              color: Colors.transparent,
               width: 50,
               child: ClipPath(
                 clipper: OsIcons(),
