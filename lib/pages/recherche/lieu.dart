@@ -5,7 +5,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:kenda/pages/recherche/lieu_controller.dart';
-import 'package:kenda/utils/connexion.dart';
+import 'package:kenda/utils/requetes.dart';
 import 'package:random_string/random_string.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
@@ -30,7 +30,7 @@ class _Lieu extends State<Lieu> {
   void initState() {
     //
     channel = WebSocketChannel.connect(
-      Uri.parse('ws://${Connexion.url}/recherchelieu/$nom'),
+      Uri.parse('${Requete.ws}/recherchelieu/$nom'),
     );
     //
     super.initState();

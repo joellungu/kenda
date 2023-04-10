@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_osm_plugin/flutter_osm_plugin.dart';
+//import 'package:flutter_osm_plugin/flutter_osm_plugin.dart';
 import 'package:get/state_manager.dart';
 
 class MaCarte extends StatefulWidget {
@@ -12,8 +12,8 @@ class MaCarte extends StatefulWidget {
 class _MaCarte extends State<MaCarte> {
   RxMap pos = {"lat": -4.34367258730203, "lon": 15.339215138650047}.obs;
   //
-  MapController controller = MapController(
-    initMapWithUserPosition: true,
+  //MapController controller = MapController(
+    //initMapWithUserPosition: true,
     // initPosition: GeoPoint(
     //   latitude: -4.34367258730203,
     //   longitude: 15.339215138650047,
@@ -24,7 +24,7 @@ class _MaCarte extends State<MaCarte> {
     //   south: 15.817995,
     //   west: -5.927006881516333,
     // ),
-  );
+  //);
   //
   @override
   Widget build(BuildContext context) {
@@ -38,6 +38,7 @@ class _MaCarte extends State<MaCarte> {
           ),
         ),
       ),
+      /*
       body: OSMFlutter(
         controller: controller,
         trackMyPosition: true,
@@ -105,13 +106,14 @@ class _MaCarte extends State<MaCarte> {
           ),
         ),
       ),
+      */
     );
   }
 
   @override
   void dispose() {
     //
-    controller.dispose();
+    //controller.dispose();
     //
     super.dispose();
   }

@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kenda/pages/recherche/lieu_controller.dart';
-import 'package:kenda/utils/connexion.dart';
+import 'package:kenda/utils/requetes.dart';
 import 'package:kenda/widgets/dessin.dart';
 import 'package:random_string/random_string.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
@@ -28,7 +28,7 @@ class _Infos extends State<Infos> {
   void initState() {
     //
     channel = WebSocketChannel.connect(
-      Uri.parse('ws://${Connexion.url}/recherchelieu/$nom'),
+      Uri.parse('${Requete.ws}/recherchelieu/$nom'),
     );
     //
     super.initState();

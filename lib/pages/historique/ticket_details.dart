@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kenda/pages/recherche/infos.dart';
+import 'package:kenda/pages/reservations/emplacement.dart';
 import 'package:kenda/pages/reservations/formulaire/formulaire.dart';
 import 'package:kenda/pages/reservations/infos_supp/infos_supplementaire.dart';
 import 'package:kenda/pages/reservations/paiement/paiement.dart';
@@ -245,7 +246,7 @@ class TicketDetails extends StatelessWidget {
                     ),
                     ListTile(
                       onTap: () {
-                        showSimpleModal(Reservation(), context);
+                        showSimpleModal(Emplacement(), context);
                       },
                       leading: Icon(Icons.airline_seat_recline_extra_rounded),
                       title: Text("Emplacement dans le bus"),

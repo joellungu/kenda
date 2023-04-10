@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kenda/pages/recherche/infos.dart';
+import 'package:kenda/pages/reservations/emplacement.dart';
 import 'package:kenda/pages/reservations/formulaire/formulaire.dart';
 import 'package:kenda/pages/reservations/infos_supp/infos_supplementaire.dart';
 import 'package:kenda/pages/reservations/paiement/paiement.dart';
@@ -10,9 +11,15 @@ import 'package:kenda/pages/reservations/reservation.dart';
 import 'package:kenda/widgets/carte_bus.dart';
 import 'package:kenda/widgets/modal.dart';
 
+import 'arretDetails.dart';
+
 class Details extends StatelessWidget {
+  Map e;
+  Details(this.e);
   @override
   Widget build(BuildContext context) {
+    int prix = int.parse("${e['prix']}".split(".")[0]);
+
     return Container(
       color: Colors.indigo.shade900,
       child: SafeArea(
@@ -44,7 +51,7 @@ class Details extends StatelessWidget {
           body: ListView(
             children: [
               Container(
-                height: Get.size.height / 5,
+                height: Get.size.height / 7,
                 color: Colors.indigo.shade100,
                 child: Row(
                   children: [
@@ -53,13 +60,13 @@ class Details extends StatelessWidget {
                       color: Colors.indigoAccent.shade400,
                     ),
                     Expanded(
-                      flex: 1,
+                      flex: 7,
                       child: Container(
                         padding: const EdgeInsets.all(7),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: const [
-                            Align(
+                          children: [
+                            const Align(
                               alignment: Alignment.centerLeft,
                               child: Text("Trajet éffectué en bus"),
                             ),
@@ -68,7 +75,7 @@ class Details extends StatelessWidget {
                               child: Align(
                                 alignment: Alignment.centerLeft,
                                 child: Text(
-                                  "Kinshasa, Mont-Ngafula, Matadi kibala",
+                                  "${e['troncons']}",
                                 ),
                               ),
                             ),
@@ -76,7 +83,8 @@ class Details extends StatelessWidget {
                               padding: EdgeInsets.only(left: 20),
                               child: Align(
                                 alignment: Alignment.centerLeft,
-                                child: Text("Kongo central, Boma, Matadi"),
+                                //child: Text(
+                                //  "${e['provinceArrive']}, ${e['lieuArrive']}"),
                               ),
                             ),
                           ],
@@ -87,7 +95,7 @@ class Details extends StatelessWidget {
                 ),
               ),
               Container(
-                height: Get.size.height / 8,
+                height: Get.size.height / 7,
                 //color: Colors.blue,
                 decoration: BoxDecoration(
                   border: Border(
@@ -109,7 +117,16 @@ class Details extends StatelessWidget {
                       child: Align(
                         alignment: Alignment.centerLeft,
                         child: Text(
-                          "Départ : dim. 4 déc",
+                          "Départ : ${[
+                            "Lundi",
+                            "Mardi",
+                            "Mercredi",
+                            "Jeudi",
+                            "Vendredi",
+                            "Samedi",
+                            "Dimanche"
+                          ][e['jourDepart']]}",
+                          //"Départ : dim. 4 déc",
                           style: TextStyle(
                             color: Colors.grey.shade700,
                           ),
@@ -123,7 +140,9 @@ class Details extends StatelessWidget {
                           child: Container(
                             alignment: Alignment.center,
                             child: Text(
-                              "11:50",
+                              "${e['heureDepart']}"
+                                  .split(" ")[1]
+                                  .substring(0, 5),
                               style: TextStyle(
                                 fontSize: 17,
                                 fontWeight: FontWeight.w900,
@@ -133,7 +152,7 @@ class Details extends StatelessWidget {
                             // color: Colors.green,
                           ),
                         ),
-                        Padding(
+                        const Padding(
                           padding: EdgeInsets.only(top: 0),
                           child: Align(
                             alignment: Alignment.topCenter,
@@ -150,7 +169,9 @@ class Details extends StatelessWidget {
                             alignment: Alignment.center,
                             //color: Colors.green,
                             child: Text(
-                              "16:50",
+                              "${e['heureArrive']}"
+                                  .split(" ")[1]
+                                  .substring(0, 5),
                               style: TextStyle(
                                 fontSize: 17,
                                 fontWeight: FontWeight.w900,
@@ -162,29 +183,12 @@ class Details extends StatelessWidget {
                         Expanded(
                           flex: 5,
                           child: Container(
-                            padding: EdgeInsets.only(
-                              right: 10,
+                            padding: const EdgeInsets.only(
+                              right: 20,
                             ),
-                            alignment: Alignment.topCenter,
+                            alignment: Alignment.centerRight,
+                            child: Text("Logo"),
                             //color: Colors.blue,
-                            // child: Row(
-                            //   mainAxisAlignment: MainAxisAlignment.end,
-                            //   children: [
-                            //     Text(
-                            //       "Info trajet ",
-                            //       style: TextStyle(
-                            //         fontSize: 17,
-                            //         fontWeight: FontWeight.w900,
-                            //         color: Colors.grey.shade900,
-                            //       ),
-                            //     ),
-                            //     Icon(
-                            //       Icons.arrow_forward_ios,
-                            //       size: 13,
-                            //       color: Colors.grey.shade800,
-                            //     )
-                            //   ],
-                            // ),
                           ),
                         ),
                       ],
@@ -198,7 +202,7 @@ class Details extends StatelessWidget {
                       child: Align(
                         alignment: Alignment.centerLeft,
                         child: Text(
-                          "Durée : 5h",
+                          "Durée : ${getDuree('${e['heureDepart']}', '${e['heureArrive']}', e['nombreJours'])}",
                           style: TextStyle(
                             color: Colors.grey.shade700,
                           ),
@@ -215,7 +219,11 @@ class Details extends StatelessWidget {
                     ListTile(
                       onTap: () {
                         //
-                        showSimpleModal(InfoSupplementaire(), context);
+                        showSimpleModal(
+                            InfoSupplementaire(
+                              details: e,
+                            ),
+                            context);
                       },
                       leading: const Icon(CupertinoIcons.gauge),
                       title: const Text("Informations supplémentaire"),
@@ -227,17 +235,23 @@ class Details extends StatelessWidget {
                     ),
                     ListTile(
                       onTap: () {
-                        //
-                        showSimpleModal(Infos({}), context);
-                      }, //airline_seat_recline_extra_rounded/safety_divider
-                      leading: const Icon(Icons.location_on),
-                      title: const Text("Voir les arrets"),
-                      subtitle: const Text("2 Arrets"),
-                      trailing: const Icon(
+                        Get.to(ArretsDetails(
+                            e['troncons'], "${e['idPartenaire']}"));
+                      },
+                      leading: Icon(Icons.location_on_outlined),
+                      title: Text("Voir les arrets"),
+                      //subtitle: Text("$arrs arrets"),
+                      trailing: Icon(
                         Icons.arrow_forward_ios,
                         size: 15,
                       ),
                     ),
+                    const Divider(
+                      color: Colors.grey,
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    )
                   ],
                 ),
               )
@@ -262,7 +276,7 @@ class Details extends StatelessWidget {
                     padding: const EdgeInsets.only(left: 20),
                     child: RichText(
                       text: TextSpan(
-                        text: "Prix pour 2 places\n",
+                        text: "Prix d'une places\n",
                         style: TextStyle(
                           color: Colors.grey.shade500,
                           fontSize: 15,
@@ -270,7 +284,7 @@ class Details extends StatelessWidget {
                         ),
                         children: [
                           TextSpan(
-                            text: "80.500 Fc",
+                            text: "$prix Fc",
                             style: TextStyle(
                               color: Colors.grey.shade800,
                               fontSize: 25,
@@ -287,16 +301,16 @@ class Details extends StatelessWidget {
                   child: InkWell(
                     onTap: () {
                       //
-                      showSimpleModal(Reservation(), context);
+                      //showSimpleModal(Emplacement(), context);
 
-                      //Get.to(Paiement());
+                      Get.to(Reservation(e));
                     },
                     child: Container(
                       margin: const EdgeInsets.all(5),
                       color: Colors.green.shade800,
                       alignment: Alignment.center,
                       child: const Text(
-                        "Acheter",
+                        "Reserver",
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 20,
@@ -312,5 +326,18 @@ class Details extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  String getDuree(String heureDepart, String heureArrive, int nombreJours) {
+    //
+    DateTime d1 = DateTime(0, 1, 1, int.parse(heureDepart.split(":")[0]),
+        int.parse(heureDepart.split(":")[1]));
+    DateTime d2 = DateTime(0, 1, 1, int.parse(heureArrive.split(":")[0]),
+        int.parse(heureArrive.split(":")[1]));
+    //
+    Duration heure = d2.difference(d1);
+    //DateUtils.getDaysInMonth(widget.annee, widget.mois);
+    //
+    return "${nombreJours == 1 ? heure.inHours : '$nombreJours J et ${heure.inHours}'} h";
   }
 }

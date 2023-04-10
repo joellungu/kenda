@@ -17,8 +17,16 @@ import 'resultat_controller.dart';
 
 class Resultat extends GetView<ResultatController> {
   //
-  Map demande;
-  Resultat(this.demande);
+  String depart;
+  String arrive;
+  int jour;
+  Resultat(this.depart, this.arrive, this.jour) {
+    controller.rechercher(
+      depart,
+      arrive,
+      jour,
+    );
+  }
   //
   @override
   Widget build(BuildContext context) {
@@ -169,222 +177,258 @@ class Resultat extends GetView<ResultatController> {
               ),
             ),
           ),
-          SliverList(
-            delegate: SliverChildBuilderDelegate(
-              (BuildContext context, int index) {
-                return Card(
-                  child: SizedBox(
-                    //color: index.isOdd ? Colors.white : Colors.black12,
-                    height: 170.0,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        // index.isOdd
-                        //     ? Expanded(
-                        //         flex: 2,
-                        //         child: Container(),
-                        //       )
-                        //     : Container(),
-                        Expanded(
-                          flex: 7,
-                          child: InkWell(
-                            onTap: () {
-                              //
-                              Get.to(Details());
-                            },
-                            child: Column(
-                              children: [
-                                Expanded(
-                                  flex: 5,
-                                  child: Row(
-                                    children: [
-                                      Expanded(
-                                        flex: 2,
-                                        child: Container(
-                                          alignment: Alignment.center,
-                                          child: RichText(
-                                            text: TextSpan(
-                                              text: "11:50\n",
-                                              children: [
-                                                TextSpan(
-                                                  text: "Départ",
+          controller.obx(
+            ((state) {
+              List l = state!;
+              return SliverList(
+                delegate: SliverChildBuilderDelegate(
+                  (BuildContext context, int index) {
+                    Map e = l[index];
+                    List dep = "${e['heureDepart']}".split(":");
+                    List arr = "${e['heureArrive']}".split(":");
+                    int prix = int.parse("${e['prix']}".split(".")[0]);
+                    return Card(
+                      child: SizedBox(
+                        //color: index.isOdd ? Colors.white : Colors.black12,
+                        height: 170.0,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            // index.isOdd
+                            //     ? Expanded(
+                            //         flex: 2,
+                            //         child: Container(),
+                            //       )
+                            //     : Container(),
+                            Expanded(
+                              flex: 7,
+                              child: InkWell(
+                                onTap: () {
+                                  //
+                                  Get.to(Details(e));
+                                },
+                                child: Column(
+                                  children: [
+                                    Expanded(
+                                      flex: 5,
+                                      child: Row(
+                                        children: [
+                                          Expanded(
+                                            flex: 2,
+                                            child: Container(
+                                              alignment: Alignment.center,
+                                              child: RichText(
+                                                text: TextSpan(
+                                                  text: "${dep[0]}:${dep[1]}\n",
+                                                  children: [
+                                                    TextSpan(
+                                                      text: "Départ",
+                                                      style: TextStyle(
+                                                        color: Colors.black,
+                                                        fontSize: 13,
+                                                        fontWeight:
+                                                            FontWeight.normal,
+                                                      ),
+                                                    )
+                                                  ],
                                                   style: TextStyle(
+                                                    fontSize: 20,
+                                                    fontWeight: FontWeight.w900,
                                                     color: Colors.black,
-                                                    fontSize: 15,
-                                                    fontWeight:
-                                                        FontWeight.normal,
-                                                  ),
-                                                )
-                                              ],
-                                              style: TextStyle(
-                                                fontSize: 20,
-                                                fontWeight: FontWeight.w900,
-                                                color: Colors.black,
-                                              ),
-                                            ),
-                                          ),
-                                          // color: Colors.green,
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: EdgeInsets.only(top: 20),
-                                        child: Align(
-                                          alignment: Alignment.topCenter,
-                                          child: Icon(
-                                            Icons.arrow_forward,
-                                            size: 13,
-                                            color: Colors.black,
-                                          ),
-                                        ),
-                                      ),
-                                      Expanded(
-                                        flex: 2,
-                                        child: Container(
-                                          alignment: Alignment.center,
-                                          //color: Colors.green,
-                                          child: RichText(
-                                            text: TextSpan(
-                                              text: "16:50\n",
-                                              children: [
-                                                TextSpan(
-                                                  text: "Départ",
-                                                  style: TextStyle(
-                                                    color: Colors.black,
-                                                    fontSize: 15,
-                                                    fontWeight:
-                                                        FontWeight.normal,
                                                   ),
                                                 ),
-                                              ],
-                                              style: TextStyle(
-                                                fontSize: 20,
-                                                fontWeight: FontWeight.w900,
-                                                color: Colors.black,
                                               ),
+                                              // color: Colors.green,
                                             ),
                                           ),
-                                        ),
-                                      ),
-                                      Expanded(
-                                        flex: 5,
-                                        child: Container(
-                                          padding: EdgeInsets.only(
-                                            top: 13,
-                                          ),
-                                          alignment: Alignment.topCenter,
-                                          //color: Colors.blue,
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.end,
-                                            children: [
-                                              const Text(
-                                                "37000 Fc ",
-                                                style: TextStyle(
-                                                  fontSize: 20,
-                                                  fontWeight: FontWeight.w500,
-                                                ),
-                                              ),
-                                              Icon(
-                                                Icons.arrow_forward_ios,
+                                          Padding(
+                                            padding: EdgeInsets.only(top: 20),
+                                            child: Align(
+                                              alignment: Alignment.topCenter,
+                                              child: Icon(
+                                                Icons.arrow_forward,
                                                 size: 13,
-                                                color: Colors.green.shade800,
-                                              )
-                                            ],
+                                                color: Colors.black,
+                                              ),
+                                            ),
                                           ),
-                                        ),
+                                          Expanded(
+                                            flex: 2,
+                                            child: Container(
+                                              alignment: Alignment.center,
+                                              //color: Colors.green,
+                                              child: RichText(
+                                                text: TextSpan(
+                                                  text: "${arr[0]}:${arr[1]}\n",
+                                                  children: [
+                                                    TextSpan(
+                                                      text: "Arrivé",
+                                                      style: TextStyle(
+                                                        color: Colors.black,
+                                                        fontSize: 13,
+                                                        fontWeight:
+                                                            FontWeight.normal,
+                                                      ),
+                                                    ),
+                                                  ],
+                                                  style: TextStyle(
+                                                    fontSize: 20,
+                                                    fontWeight: FontWeight.w900,
+                                                    color: Colors.black,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          Expanded(
+                                            flex: 5,
+                                            child: Container(
+                                              padding: EdgeInsets.only(
+                                                top: 13,
+                                              ),
+                                              alignment: Alignment.topCenter,
+                                              //color: Colors.blue,
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.end,
+                                                children: [
+                                                  Text(
+                                                    "$prix Fc ",
+                                                    style: TextStyle(
+                                                      fontSize: 20,
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                    ),
+                                                  ),
+                                                  Icon(
+                                                    Icons.arrow_forward_ios,
+                                                    size: 13,
+                                                    color:
+                                                        Colors.green.shade800,
+                                                  )
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                        ],
                                       ),
-                                    ],
-                                  ),
-                                ),
-                                const SizedBox(
-                                  height: 10,
-                                ),
-                                Expanded(
-                                  flex: 2,
-                                  child: Container(
-                                    padding: const EdgeInsets.only(
-                                        left: 15, right: 10),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text(
-                                          "12 Places disponible",
-                                          style: TextStyle(
-                                            color: Colors.grey.shade600,
-                                            fontWeight: FontWeight.w900,
-                                          ),
-                                        ),
-                                        Row(
+                                    ),
+                                    const SizedBox(
+                                      height: 10,
+                                    ),
+                                    Expanded(
+                                      flex: 2,
+                                      child: Container(
+                                        padding: const EdgeInsets.only(
+                                            left: 15, right: 10),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
                                           children: [
-                                            const Text("LOGO"),
+                                            Text(
+                                              "12 Places disponible",
+                                              style: TextStyle(
+                                                color: Colors.grey.shade600,
+                                                fontWeight: FontWeight.w900,
+                                              ),
+                                            ),
+                                            Row(
+                                              children: [
+                                                const Text("LOGO"),
+                                              ],
+                                            ),
                                           ],
                                         ),
-                                      ],
-                                    ),
-                                  ),
-                                )
-                              ],
-                            ),
-                          ),
-                        ),
-                        Container(
-                          color: Colors.grey.shade300,
-                          height: 1,
-                        ),
-                        Expanded(
-                          flex: 3,
-                          child: InkWell(
-                            onTap: () {
-                              //
-                              showSimpleModal(Infos({}), context);
-                            },
-                            child: Container(
-                              padding: const EdgeInsets.only(
-                                left: 15,
-                                bottom: 5,
+                                      ),
+                                    )
+                                  ],
+                                ),
                               ),
-                              height: 50,
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    "Durée 2h30m",
-                                    style: TextStyle(
-                                      color: Colors.grey.shade800,
-                                    ),
+                            ),
+                            Container(
+                              color: Colors.grey.shade300,
+                              height: 1,
+                            ),
+                            Expanded(
+                              flex: 3,
+                              child: InkWell(
+                                onTap: () {
+                                  //
+                                  //showSimpleModal(Infos(e), context);
+                                },
+                                child: Container(
+                                  padding: const EdgeInsets.only(
+                                    left: 15,
+                                    bottom: 5,
                                   ),
-                                  Row(
+                                  height: 50,
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
                                     children: [
-                                      const Text(
-                                        "Info trajet ",
+                                      Text(
+                                        "Durée ${getDuree('${e['heureDepart']}', '${e['heureArrive']}', e['nombreJours'])}",
                                         style: TextStyle(
-                                          fontWeight: FontWeight.w500,
+                                          color: Colors.grey.shade800,
                                         ),
                                       ),
-                                      Icon(
-                                        Icons.arrow_forward_ios,
-                                        size: 13,
-                                        color: Colors.grey.shade800,
-                                      )
+                                      Row(
+                                        children: [
+                                          const Text(
+                                            "Info trajet ",
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                          ),
+                                          Icon(
+                                            Icons.arrow_forward_ios,
+                                            size: 13,
+                                            color: Colors.grey.shade800,
+                                          )
+                                        ],
+                                      ),
                                     ],
                                   ),
-                                ],
+                                ),
                               ),
                             ),
-                          ),
+                          ],
                         ),
-                      ],
-                    ),
-                  ),
-                );
-              },
-              childCount: 3,
+                      ),
+                    );
+                  },
+                  childCount: l.length,
+                ),
+              );
+            }),
+            onEmpty: SliverToBoxAdapter(
+              child: Container(),
+            ),
+            onLoading: SliverToBoxAdapter(
+              child: Center(
+                child: SizedBox(
+                  height: 40,
+                  width: 40,
+                  child: CircularProgressIndicator(),
+                ),
+              ),
             ),
           ),
         ],
       ),
     );
+  }
+
+  String getDuree(String heureDepart, String heureArrive, int nombreJours) {
+    //
+    DateTime d1 = DateTime(0, 1, 1, int.parse(heureDepart.split(":")[0]),
+        int.parse(heureDepart.split(":")[1]));
+    DateTime d2 = DateTime(0, 1, 1, int.parse(heureArrive.split(":")[0]),
+        int.parse(heureArrive.split(":")[1]));
+    //
+    Duration heure = d2.difference(d1);
+    //DateUtils.getDaysInMonth(widget.annee, widget.mois);
+    //
+    return "${nombreJours == 1 ? heure.inHours : '$nombreJours J et ${heure.inHours}'} h";
   }
 }

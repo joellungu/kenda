@@ -24,9 +24,12 @@ class _Recherche extends State<Recherche> {
   //
   RxBool renverser = false.obs;
   //
-  String jour = "", mois = "", annee = "";
+  //String jour = "", mois = "", annee = "";
   //
   String nombreP = '1';
+  //
+
+  RxInt jour = 1.obs;
 
   // List of items in our dropdown menu
   var items = [
@@ -399,190 +402,76 @@ class _Recherche extends State<Recherche> {
                     ),
                     SliverToBoxAdapter(
                       child: SizedBox(
-                        height: 300,
+                        height: 250,
                         child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             const SizedBox(
                               height: 20,
                             ),
-                            InkWell(
-                              onTap: () {
-                                //
-                                showDatePicker(
-                                  context: context,
-
-                                  firstDate: DateTime.now(),
-                                  lastDate: DateTime(DateTime.now().year,
-                                      DateTime.now().month + 1),
-                                  //currentDate: DateTime.now(),
-                                  initialDate: DateTime.now(),
-                                  // builder: (context, child) {
-                                  //   return Theme(
-                                  //     data: Theme.of(context).copyWith(
-                                  //       colorScheme: ColorScheme.light(
-                                  //         primary: Colors
-                                  //             .indigo, // <-- SEE HERE
-                                  //         onPrimary:
-                                  //             Colors.redAccent, // <-- SEE HERE
-                                  //         onSurface:
-                                  //             Colors.black, // <-- SEE HERE
-                                  //       ),
-                                  //       textButtonTheme: TextButtonThemeData(
-                                  //         style: TextButton.styleFrom(
-                                  //           primary: Colors
-                                  //               .white, // button text color
-                                  //         ),
-                                  //       ),
-                                  //     ),
-                                  //     child: child!,
-                                  //   );
-                                  // },
-                                ).then((value) {
-                                  //
-                                  setState(() {
-                                    jour = "${value!.day}";
-                                    mois = getMoisEnLettre(value.month);
-                                    annee = "${value.year}";
-                                  });
-                                });
-                                //
-                              },
-                              child: Container(
-                                height: 50,
-                                width: Get.size.width / 1.1,
-                                decoration: BoxDecoration(
-                                  border: Border(
-                                    bottom: BorderSide(
-                                      color: Colors.grey.shade300,
-                                      width: 1,
-                                    ),
+                            Container(
+                              height: 50,
+                              width: Get.size.width / 1.1,
+                              decoration: BoxDecoration(
+                                border: Border(
+                                  bottom: BorderSide(
+                                    color: Colors.grey.shade300,
+                                    width: 1,
                                   ),
-                                ),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Expanded(
-                                      flex: 2,
-                                      child: Text(
-                                        "Jour",
-                                        style: TextStyle(
-                                          fontSize: 17,
-                                        ),
-                                      ),
-                                    ),
-                                    Expanded(
-                                        flex: 8,
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.end,
-                                          children: [
-                                            jour != ""
-                                                ? Text(
-                                                    "$jour, $mois, $annee ",
-                                                    style: TextStyle(
-                                                      fontSize: 17,
-                                                    ),
-                                                  )
-                                                : const Text("Aujourd'hui "),
-                                            Icon(
-                                              Icons.arrow_forward_ios,
-                                              color: Colors.grey.shade600,
-                                              size: 13,
-                                            ),
-                                          ],
-                                        )),
-                                  ],
                                 ),
                               ),
-                            ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            InkWell(
-                              onTap: () {
-                                //
-                              },
-                              child: Container(
-                                height: 50,
-                                width: Get.size.width / 1.1,
-                                decoration: BoxDecoration(
-                                  border: Border(
-                                    bottom: BorderSide(
-                                      color: Colors.grey.shade300,
-                                      width: 1,
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Expanded(
+                                    flex: 2,
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: const [
+                                        Icon(
+                                          Icons.calendar_today,
+                                          size: 30,
+                                          color: Colors.black,
+                                        ),
+                                      ],
                                     ),
                                   ),
-                                ),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Expanded(
-                                      flex: 2,
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        children: const [
-                                          Icon(
-                                            Icons.person_add_outlined,
-                                            size: 30,
-                                            color: Colors.black,
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    Expanded(
-                                      flex: 6,
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.end,
-                                        children: const [
-                                          Text(
-                                            "Nombre de personne   ",
-                                            style: TextStyle(
-                                              fontSize: 17,
+                                  Expanded(
+                                    flex: 6,
+                                    child: Container(),
+                                  ),
+                                  Expanded(
+                                    flex: 3,
+                                    child: Obx(
+                                      () => DropdownButtonHideUnderline(
+                                        child: DropdownButton(
+                                          value: jour.value,
+                                          items: List.generate(
+                                            7,
+                                            (index) => DropdownMenuItem(
+                                              value: index + 1,
+                                              child: Text([
+                                                "Lundi",
+                                                "Mardi",
+                                                "Mercredi",
+                                                "Jeudi",
+                                                "Vendredi",
+                                                "Samedi",
+                                                "Dimanche"
+                                              ][index]),
                                             ),
                                           ),
-                                        ],
-                                      ),
-                                    ),
-                                    Expanded(
-                                      flex: 2,
-                                      child: DropdownButtonHideUnderline(
-                                        child: DropdownButton(
-                                          // Initial Value
-                                          isExpanded: true,
-                                          value: nombreP,
-                                          style: const TextStyle(
-                                            fontSize: 20,
-                                            color: Colors.black,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                          // Down Arrow Icon
-                                          icon: const Icon(
-                                              Icons.keyboard_arrow_down),
-
-                                          // Array list of items
-                                          items: items.map((String items) {
-                                            return DropdownMenuItem(
-                                              value: items,
-                                              child: Text(items),
-                                            );
-                                          }).toList(),
-                                          // After selecting the desired option,it will
-                                          // change button value to selected value
-                                          onChanged: (String? newValue) {
-                                            setState(() {
-                                              nombreP = newValue!;
-                                            });
+                                          onChanged: (j) {
+                                            jour.value = j as int;
+                                            print(jour.value);
                                           },
                                         ),
                                       ),
                                     ),
-                                  ],
-                                ),
+                                  ),
+                                ],
                               ),
                             ),
                             const SizedBox(
@@ -643,11 +532,16 @@ class _Recherche extends State<Recherche> {
                             ),
                             ElevatedButton(
                               onPressed: () {
-                                Get.to(Resultat({}));
+                                //Get.to(Resultat({}));
                                 if (lieuController.depart.value.isNotEmpty &&
                                     lieuController.arrive.value.isNotEmpty) {
                                   //
-                                  Get.to(Resultat({}));
+                                  Get.to(
+                                    Resultat(
+                                        lieuController.depart.value,
+                                        lieuController.arrive.value,
+                                        jour.value),
+                                  );
                                   //
                                 } else {
                                   //
@@ -725,12 +619,13 @@ class _Recherche extends State<Recherche> {
                           width: 30,
                         ),
                       ),
-                      Text(
+                      const Text(
                         "KENDA",
                         style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 17,
-                            fontWeight: FontWeight.normal),
+                          color: Colors.white,
+                          fontSize: 17,
+                          fontWeight: FontWeight.normal,
+                        ),
                       ),
                       InkWell(
                         onTap: () {
@@ -766,7 +661,7 @@ class _HistoriqueRecherche extends State<HistoriqueRecherche> {
     return InkWell(
       onTap: () {
         //
-        Get.to(Resultat({}));
+        Get.to(Resultat("", "", 1));
       },
       child: Container(
         margin: const EdgeInsets.only(
