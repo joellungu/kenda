@@ -1,11 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:kenda/pages/reservations/paiement/paiement.dart';
 import 'package:kenda/widgets/buss.dart';
-import 'package:kenda/widgets/carte_bus.dart';
+
+import 'reservation_controller.dart';
 
 class Emplacement extends StatelessWidget {
-  const Emplacement({Key? key}) : super(key: key);
+  List? l;
+  Emplacement({this.l});
+
+  ReservationController reservationController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -120,16 +125,24 @@ class Emplacement extends StatelessWidget {
           flex: 1,
           child: Padding(
             padding: const EdgeInsets.all(15),
-            child: Buss(),
+            child: Buss(l!),
           ),
         ),
         const SizedBox(
-          height: 10,
+          height: 0,
         ),
         Padding(
           padding: EdgeInsets.zero,
           child: InkWell(
-            onTap: () {},
+            onTap: () {
+              if (reservationController.places.isEmpty) {
+                Get.snackbar("Attention",
+                    "Veuillez selectionner une ou plusieurs places.",
+                    colorText: Colors.white, backgroundColor: Colors.indigo);
+              } else {
+                Get.to(Paiement());
+              }
+            },
             child: Padding(
               padding: const EdgeInsets.only(
                 left: 20,
@@ -140,8 +153,8 @@ class Emplacement extends StatelessWidget {
                 alignment: Alignment.center,
                 height: 50,
                 padding: const EdgeInsets.only(
-                  left: 20,
-                  right: 20,
+                  //left: 20,
+                  //right: 20,
                   bottom: 2,
                 ),
                 child: Text(

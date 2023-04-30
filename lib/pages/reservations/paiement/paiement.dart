@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kenda/pages/reservations/infos_supp/infos_supplementaire.dart';
+import 'package:kenda/widgets/achat.dart';
 import 'paiement_controller.dart';
 
 class Paiement extends GetView<PaiementController> {
@@ -236,14 +237,49 @@ class Paiement extends GetView<PaiementController> {
                     ),
                     Expanded(
                       flex: 4,
-                      child: Container(
-                        margin: const EdgeInsets.all(5),
-                        color: Colors.green.shade800,
-                        alignment: Alignment.center,
-                        child: InkWell(
-                          onTap: () {
-                            //
-                          },
+                      child: InkWell(
+                        onTap: () {
+                          //
+                          //
+                          print("Salut comment ?");
+                          /**
+                             * 
+                                 Long idPartenaire;
+                                 Long idTronson;
+                                //
+                                 int nombrepDePlace;
+                                //Arret Arriver//
+                                 String itinerance;
+                                 String datePaiement;
+
+                                 String emplacement;
+                                 Boolean consomer;
+                                 double prix;
+                                 String devise;
+                                //
+                                 String codePostal;
+                                 String phone;
+                                 int codeRecuperation;
+                                 String dateDepart;
+                                 String heureDepart;
+                             */
+                          String parametres =
+                              "12-12-2023,15:00,+243,815381693,80500,CDF,kinshasa,kilongo,2,12-13,12345,false";
+                          //
+                          showDialog(
+                            context: context,
+                            builder: (c) {
+                              return Material(
+                                color: Colors.white,
+                                child: Achat(parametres),
+                              );
+                            },
+                          );
+                        },
+                        child: Container(
+                          margin: const EdgeInsets.all(5),
+                          color: Colors.green.shade800,
+                          alignment: Alignment.center,
                           child: const Text(
                             "Acheter",
                             style: TextStyle(

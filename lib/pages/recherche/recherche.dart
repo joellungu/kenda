@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_connect/http/src/utils/utils.dart';
-import 'package:kenda/pages/recherche/lieu.dart';
+import 'package:kenda/widgets/lieu.dart';
 import 'package:kenda/pages/recherche/lieu_controller.dart';
 import 'package:kenda/pages/recherche/resultat.dart';
 import 'package:kenda/utils/utils.dart';
@@ -99,7 +99,7 @@ class _Recherche extends State<Recherche> {
                       pinned: true,
                       snap: false,
                       floating: false,
-                      expandedHeight: Get.size.height / 3.5,
+                      expandedHeight: Get.size.height / 3.1,
                       flexibleSpace: FlexibleSpaceBar(
                         expandedTitleScale: 2,
                         background: Stack(
@@ -360,7 +360,8 @@ class _Recherche extends State<Recherche> {
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsets.only(right: 10),
+                              padding:
+                                  const EdgeInsets.only(right: 10, bottom: 20),
                               child: Align(
                                 alignment: Alignment.centerRight,
                                 child: InkWell(
@@ -402,7 +403,7 @@ class _Recherche extends State<Recherche> {
                     ),
                     SliverToBoxAdapter(
                       child: SizedBox(
-                        height: 250,
+                        height: 200,
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -431,7 +432,7 @@ class _Recherche extends State<Recherche> {
                                           MainAxisAlignment.start,
                                       children: const [
                                         Icon(
-                                          Icons.calendar_today,
+                                          Icons.calendar_month,
                                           size: 30,
                                           color: Colors.black,
                                         ),
@@ -448,6 +449,7 @@ class _Recherche extends State<Recherche> {
                                       () => DropdownButtonHideUnderline(
                                         child: DropdownButton(
                                           value: jour.value,
+                                          isExpanded: true,
                                           items: List.generate(
                                             7,
                                             (index) => DropdownMenuItem(

@@ -28,6 +28,7 @@ import 'reservations/details/details.dart';
 import 'reservations/formulaire/formulaire.dart';
 import 'reservations/paiement/paiement.dart';
 import 'reservations/paiement/paiement_controller.dart';
+import 'reservations/reservation_controller.dart';
 
 class Splash extends StatelessWidget {
   //
@@ -50,6 +51,9 @@ class Splash extends StatelessWidget {
   PaiementController paiementController = Get.put(PaiementController());
   //
   HistoriqueController historiqueController = Get.put(HistoriqueController());
+  //
+  ReservationController reservationController =
+      Get.put(ReservationController());
   //
   Splash() {
     Timer(const Duration(seconds: 3), () {
