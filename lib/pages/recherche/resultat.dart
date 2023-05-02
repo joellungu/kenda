@@ -104,7 +104,7 @@ class Resultat extends GetView<ResultatController> {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   const SizedBox(
-                    height: 7,
+                    height: 20,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -128,7 +128,7 @@ class Resultat extends GetView<ResultatController> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Text(
-                        "  Choix du bus   ",
+                        "  $depart   ",
                         style: TextStyle(
                           color: Colors.grey.shade400,
                           fontSize: 15,
@@ -140,7 +140,7 @@ class Resultat extends GetView<ResultatController> {
                         size: 20,
                       ),
                       Text(
-                        "   Choix du bus",
+                        "   $arrive",
                         style: TextStyle(
                           color: Colors.grey.shade400,
                           fontSize: 15,

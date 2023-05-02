@@ -4,7 +4,8 @@ import 'package:kenda/pages/reservations/reservation_controller.dart';
 
 class Buss extends StatelessWidget {
   List l;
-  Buss(this.l);
+  Map e;
+  Buss(this.l, this.e);
 
   ReservationController reservationController = Get.find();
   //

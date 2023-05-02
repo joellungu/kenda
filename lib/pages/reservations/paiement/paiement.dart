@@ -2,14 +2,24 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kenda/pages/reservations/infos_supp/infos_supplementaire.dart';
+import 'package:kenda/pages/reservations/reservation_controller.dart';
 import 'package:kenda/widgets/achat.dart';
 import 'paiement_controller.dart';
 
 class Paiement extends GetView<PaiementController> {
   //
-  RxString choix = "admin".obs;
+  Map e;
+  Paiement(this.e) {
+    print(e);
+  }
+  //
+  RxString choix = "CDF".obs;
   RxString CDF = "CDF".obs;
   RxString USD = "USD".obs;
+  //
+  ReservationController reservationController = Get.find();
+  //
+  PaiementController paiementController = Get.find();
   //
   @override
   Widget build(BuildContext context) {
@@ -91,7 +101,7 @@ class Paiement extends GetView<PaiementController> {
                           child: TextField(
                             autofocus: true,
                             keyboardType: TextInputType.number,
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 25,
                               color: Colors.white70,
                             ),
@@ -120,7 +130,7 @@ class Paiement extends GetView<PaiementController> {
                           height: 5,
                         ),
                         Padding(
-                          padding: EdgeInsets.symmetric(
+                          padding: const EdgeInsets.symmetric(
                             horizontal: 20,
                           ),
                           child: Row(
@@ -167,27 +177,10 @@ class Paiement extends GetView<PaiementController> {
                             ],
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 20,
                         ),
-                        const Text.rich(
-                          TextSpan(
-                            text: 'Paiemant de 2 billets de la compagnie ',
-                            style: TextStyle(
-                              fontSize: 20,
-                            ),
-                            children: [
-                              TextSpan(
-                                text: "Transco",
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black,
-                                ),
-                              ),
-                            ],
-                          ),
-                          textAlign: TextAlign.center,
-                        )
+                        getDetails("${e['idPartenaire']}"),
                       ],
                     ),
                   ),
@@ -299,5 +292,37 @@ class Paiement extends GetView<PaiementController> {
         ),
       ),
     );
+  }
+
+  Widget getDetails(String idPartenaire) {
+    return FutureBuilder(
+        future: paiementController.getCompanie(idPartenaire),
+        builder: (c, t) {
+          if (t.hasData) {
+            Map d = t.data as Map;
+            return Text.rich(
+              TextSpan(
+                text:
+                    'Paiemant de ${reservationController.places.length} billets de la compagnie ',
+                style: TextStyle(
+                  fontSize: 20,
+                ),
+                children: [
+                  TextSpan(
+                    text: "${d['nom']}",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                    ),
+                  ),
+                ],
+              ),
+              textAlign: TextAlign.center,
+            );
+          } else if (t.hasError) {
+            return Container();
+          }
+          return Container();
+        });
   }
 }

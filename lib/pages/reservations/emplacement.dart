@@ -6,11 +6,28 @@ import 'package:kenda/widgets/buss.dart';
 
 import 'reservation_controller.dart';
 
-class Emplacement extends StatelessWidget {
+class Emplacement extends StatefulWidget {
   List? l;
-  Emplacement({this.l});
+  Map? e;
+  Emplacement({super.key, this.l, this.e});
 
+  @override
+  State<StatefulWidget> createState() {
+    // TODO: implement createState
+    return _Emplacement();
+  }
+}
+
+class _Emplacement extends State<Emplacement> {
   ReservationController reservationController = Get.find();
+
+  @override
+  void dispose() {
+    //
+    super.dispose();
+    //
+    reservationController.places.clear();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,23 +53,26 @@ class Emplacement extends StatelessWidget {
               SizedBox(
                 width: 15,
               ),
-              RichText(
-                text: TextSpan(
-                  text: "Emplacement dans le bus\n",
-                  children: [
-                    TextSpan(
-                      text: "2 Places selectionnables",
-                      style: TextStyle(
-                        color: Colors.grey.shade900,
-                        fontSize: 19,
-                        fontWeight: FontWeight.w300,
+              Obx(
+                () => RichText(
+                  text: TextSpan(
+                    text: "Emplacement dans le bus\n",
+                    children: [
+                      TextSpan(
+                        text:
+                            "${widget.e!['bus']['capacite'] - widget.l!.length - reservationController.places.length} Places selectionnables",
+                        style: TextStyle(
+                          color: Colors.grey.shade900,
+                          fontSize: 19,
+                          fontWeight: FontWeight.w300,
+                        ),
                       ),
+                    ],
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w900,
+                      color: Colors.black,
                     ),
-                  ],
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.w900,
-                    color: Colors.black,
                   ),
                 ),
               ),
@@ -125,7 +145,7 @@ class Emplacement extends StatelessWidget {
           flex: 1,
           child: Padding(
             padding: const EdgeInsets.all(15),
-            child: Buss(l!),
+            child: Buss(widget.l!, widget.e!),
           ),
         ),
         const SizedBox(
@@ -140,7 +160,7 @@ class Emplacement extends StatelessWidget {
                     "Veuillez selectionner une ou plusieurs places.",
                     colorText: Colors.white, backgroundColor: Colors.indigo);
               } else {
-                Get.to(Paiement());
+                Get.to(Paiement(widget.e!));
               }
             },
             child: Padding(

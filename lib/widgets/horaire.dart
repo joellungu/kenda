@@ -38,7 +38,13 @@ class Horaire extends StatelessWidget {
                     child: InkWell(
                       onTap: () {
                         //
-                        showSimpleModal(Emplacement(l: l), context);
+                        showSimpleModal(
+                          Emplacement(
+                            l: l,
+                            e: e,
+                          ),
+                          context,
+                        );
                         //
                       },
                       child: Column(

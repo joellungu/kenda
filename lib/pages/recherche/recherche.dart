@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_connect/http/src/utils/utils.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:kenda/widgets/lieu.dart';
 import 'package:kenda/pages/recherche/lieu_controller.dart';
 import 'package:kenda/pages/recherche/resultat.dart';
@@ -56,6 +57,25 @@ class _Recherche extends State<Recherche> {
   ];
   //
   LieuController lieuController = Get.find();
+  //
+  var box = GetStorage();
+  //
+  RxList liste = RxList();
+  //
+  @override
+  void initState() {
+    //
+    super.initState();
+    //
+    try {
+      List ll = box.read("historiques") ?? [];
+      liste.value = ll.toSet().toList();
+      print(liste.value);
+    } catch (e) {
+      print(e);
+    }
+    //
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -538,6 +558,10 @@ class _Recherche extends State<Recherche> {
                                 if (lieuController.depart.value.isNotEmpty &&
                                     lieuController.arrive.value.isNotEmpty) {
                                   //
+                                  liste.add(
+                                      "${lieuController.depart.value}|${lieuController.arrive.value}|${jour.value}");
+                                  box.write("historiques", liste.value);
+                                  //
                                   Get.to(
                                     Resultat(
                                         lieuController.depart.value,
@@ -589,12 +613,22 @@ class _Recherche extends State<Recherche> {
                         ),
                       ),
                     ),
-                    SliverList(
-                      delegate: SliverChildBuilderDelegate(
-                        (BuildContext context, int index) {
-                          return HistoriqueRecherche();
-                        },
-                        childCount: 3,
+                    Obx(
+                      () => SliverList(
+                        delegate: SliverChildBuilderDelegate(
+                          (BuildContext context, int index) {
+                            String e = liste.toList()[index];
+                            List l = e.split("|");
+                            //,,
+                            Map x = {
+                              "depart": l[0],
+                              "arriver": l[1],
+                              "jour": l[2],
+                            };
+                            return HistoriqueRecherche(x);
+                          },
+                          childCount: liste.length,
+                        ),
                       ),
                     ),
                     const SliverToBoxAdapter(
@@ -651,6 +685,9 @@ class _Recherche extends State<Recherche> {
 }
 
 class HistoriqueRecherche extends StatefulWidget {
+  Map e;
+  HistoriqueRecherche(this.e);
+  //
   @override
   State<StatefulWidget> createState() {
     return _HistoriqueRecherche();
@@ -662,8 +699,19 @@ class _HistoriqueRecherche extends State<HistoriqueRecherche> {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
+        //depart,arriver,jour
+        print(
+            "${widget.e['depart']}--${widget.e['arriver']}--${widget.e['jour']}-- ");
         //
-        Get.to(Resultat("", "", 1));
+        Get.to(
+          Resultat(
+            widget.e['depart'],
+            widget.e['arriver'],
+            int.parse(
+              widget.e['jour'],
+            ),
+          ),
+        );
       },
       child: Container(
         margin: const EdgeInsets.only(
@@ -707,10 +755,10 @@ class _HistoriqueRecherche extends State<HistoriqueRecherche> {
                       alignment: Alignment.centerLeft,
                       child: RichText(
                         text: TextSpan(
-                          text: "Kinshasa\n",
+                          text: "${widget.e['depart']}\n",
                           children: [
                             TextSpan(
-                              text: "Kassangulu",
+                              text: "${widget.e['arriver']}",
                               style: TextStyle(
                                 fontSize: 17,
                                 fontWeight: FontWeight.normal,
@@ -753,3 +801,5 @@ class _HistoriqueRecherche extends State<HistoriqueRecherche> {
     );
   }
 }
+
+//
