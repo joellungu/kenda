@@ -5,7 +5,9 @@ import 'package:kenda/pages/reservations/reservation_controller.dart';
 class Buss extends StatelessWidget {
   List l;
   Map e;
-  Buss(this.l, this.e);
+  Buss(this.l, this.e) {
+    //print("infos bus: ${e['bus']}");
+  }
 
   ReservationController reservationController = Get.find();
   //
@@ -62,12 +64,12 @@ class Buss extends StatelessWidget {
       crossAxisSpacing: 4,
       childAspectRatio: 1,
       children: List.generate(
-        40,
+        e['bus']['capacite'],
         (index) {
           bool choix = false;
           //
           l.forEach((element) {
-            choix = element['place'] == index;
+            choix = element['emplacement'] == index;
           });
           //
           if (choix) {

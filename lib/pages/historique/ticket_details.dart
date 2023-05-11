@@ -1,3 +1,4 @@
+import 'package:barcode_widget/barcode_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -6,13 +7,21 @@ import 'package:kenda/pages/recherche/infos.dart';
 import 'package:kenda/pages/reservations/emplacement.dart';
 import 'package:kenda/pages/reservations/formulaire/formulaire.dart';
 import 'package:kenda/pages/reservations/infos_supp/infos_supplementaire.dart';
+import 'package:kenda/pages/reservations/infos_supp/infos_supplementaire_load.dart';
 import 'package:kenda/pages/reservations/paiement/paiement.dart';
+import 'package:kenda/pages/reservations/paiement/paiement_controller.dart';
 import 'package:kenda/pages/reservations/reservation.dart';
 import 'package:kenda/widgets/carte_bus.dart';
 import 'package:kenda/widgets/ma_carte.dart';
 import 'package:kenda/widgets/modal.dart';
 
 class TicketDetails extends StatelessWidget {
+  Map e;
+  //
+  PaiementController paiementController = Get.find();
+  TicketDetails(this.e) {
+    print(e);
+  }
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -46,7 +55,7 @@ class TicketDetails extends StatelessWidget {
           body: ListView(
             children: [
               Container(
-                height: Get.size.height / 5,
+                height: Get.size.height / 7,
                 color: Colors.indigo.shade100,
                 child: Row(
                   children: [
@@ -60,8 +69,8 @@ class TicketDetails extends StatelessWidget {
                         padding: const EdgeInsets.all(7),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: const [
-                            Align(
+                          children: [
+                            const Align(
                               alignment: Alignment.centerLeft,
                               child: Text("Trajet éffectué en bus"),
                             ),
@@ -70,7 +79,10 @@ class TicketDetails extends StatelessWidget {
                               child: Align(
                                 alignment: Alignment.centerLeft,
                                 child: Text(
-                                  "Kinshasa, Mont-Ngafula, Matadi kibala",
+                                  "${e['itinerance']}".split("à")[0],
+                                  style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w500),
                                 ),
                               ),
                             ),
@@ -78,7 +90,14 @@ class TicketDetails extends StatelessWidget {
                               padding: EdgeInsets.only(left: 20),
                               child: Align(
                                 alignment: Alignment.centerLeft,
-                                child: Text("Kongo central, Boma, Matadi"),
+                                child: Text(
+                                  "${e['itinerance']}"
+                                      .split("à")[1]
+                                      .replaceAll(" ", ""),
+                                  style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w500),
+                                ),
                               ),
                             ),
                           ],
@@ -98,133 +117,75 @@ class TicketDetails extends StatelessWidget {
                   ],
                 ),
               ),
-              InkWell(
-                onTap: () {
-                  //
-                  Get.to(MaCarte());
-                  //
-                },
-                child: Container(
-                  height: Get.size.height / 8,
-                  //color: Colors.blue,
-                  decoration: BoxDecoration(
-                    border: Border(
-                      bottom: BorderSide(
-                        color: Colors.grey.shade400,
-                        width: 1,
-                      ),
+              Container(
+                height: Get.size.height / 8,
+                //color: Colors.blue,
+                decoration: BoxDecoration(
+                  border: Border(
+                    bottom: BorderSide(
+                      color: Colors.grey.shade400,
+                      width: 1,
                     ),
                   ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(
-                          top: 10,
-                          left: 22,
-                          bottom: 5,
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(
+                        top: 10,
+                        left: 22,
+                        bottom: 5,
+                      ),
+                      child: Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          "Départ : ${getDate(e['dateDepart'])}",
+                          style: TextStyle(
+                            color: Colors.grey.shade700,
+                          ),
                         ),
-                        child: Align(
-                          alignment: Alignment.centerLeft,
+                      ),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.only(
+                            top: 10,
+                            left: 22,
+                            bottom: 5,
+                          ),
+                          alignment: Alignment.center,
                           child: Text(
-                            "Départ : dim. 4 déc",
+                            "Heure: ${e['heureDepart']}",
                             style: TextStyle(
-                              color: Colors.grey.shade700,
+                              fontSize: 17,
+                              fontWeight: FontWeight.w900,
+                              color: Colors.grey.shade900,
                             ),
+                          ),
+                          // color: Colors.green,
+                        )
+                      ],
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(
+                        top: 10,
+                        left: 22,
+                        bottom: 5,
+                      ),
+                      child: Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          "Réf : ${e['unique_code']}",
+                          style: TextStyle(
+                            color: Colors.grey.shade700,
                           ),
                         ),
                       ),
-                      Row(
-                        children: [
-                          Expanded(
-                            flex: 2,
-                            child: Container(
-                              alignment: Alignment.center,
-                              child: Text(
-                                "11:50",
-                                style: TextStyle(
-                                  fontSize: 17,
-                                  fontWeight: FontWeight.w900,
-                                  color: Colors.grey.shade900,
-                                ),
-                              ),
-                              // color: Colors.green,
-                            ),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.only(top: 0),
-                            child: Align(
-                              alignment: Alignment.topCenter,
-                              child: Icon(
-                                Icons.arrow_forward,
-                                size: 13,
-                                color: Colors.black,
-                              ),
-                            ),
-                          ),
-                          Expanded(
-                            flex: 2,
-                            child: Container(
-                              alignment: Alignment.center,
-                              //color: Colors.green,
-                              child: Text(
-                                "16:50",
-                                style: TextStyle(
-                                  fontSize: 17,
-                                  fontWeight: FontWeight.w900,
-                                  color: Colors.grey.shade900,
-                                ),
-                              ),
-                            ),
-                          ),
-                          Expanded(
-                            flex: 5,
-                            child: Container(
-                              padding: EdgeInsets.only(
-                                right: 10,
-                              ),
-                              alignment: Alignment.topCenter,
-                              //color: Colors.blue,
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: [
-                                  Text(
-                                    "Voir la carte ",
-                                    style: TextStyle(
-                                      fontSize: 17,
-                                      fontWeight: FontWeight.w900,
-                                      color: Colors.grey.shade900,
-                                    ),
-                                  ),
-                                  Icon(
-                                    Icons.arrow_forward_ios,
-                                    size: 13,
-                                    color: Colors.grey.shade800,
-                                  )
-                                ],
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(
-                          top: 10,
-                          left: 22,
-                          bottom: 5,
-                        ),
-                        child: Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            "Durée : 5h",
-                            style: TextStyle(
-                              color: Colors.grey.shade700,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
               Padding(
@@ -234,7 +195,14 @@ class TicketDetails extends StatelessWidget {
                     ListTile(
                       onTap: () {
                         //
-                        showSimpleModal(InfoSupplementaire(), context);
+                        showSimpleModal(
+                            InfoSupplementaireLoad(
+                              id: "${e['idBoutique']}",
+                              arrive: "${e['itinerance']}"
+                                  .split("à")[1]
+                                  .replaceAll(" ", ""),
+                            ),
+                            context);
                       },
                       leading: const Icon(CupertinoIcons.gauge),
                       title: const Text("Informations supplémentaire"),
@@ -246,37 +214,28 @@ class TicketDetails extends StatelessWidget {
                     ),
                     ListTile(
                       onTap: () {
-                        showSimpleModal(Emplacement(), context);
+                        //showSimpleModal(Emplacement(), context);
                       },
                       leading: Icon(Icons.airline_seat_recline_extra_rounded),
-                      title: Text("Emplacement dans le bus"),
-                      subtitle: Text("2 places réservées"),
-                      trailing: Icon(
+                      title: const Text("Emplacement dans le bus"),
+                      subtitle: Text("Place N° ${e['emplacement']}"),
+                      trailing: const Icon(
                         Icons.arrow_forward_ios,
                         size: 15,
                       ),
                     ),
-                    const ListTile(
-                      leading: Icon(Icons.map),
-                      title: Text("Voir la carte"),
-                      subtitle: Text("12 arrets"),
-                      trailing: Icon(
-                        Icons.arrow_forward_ios,
-                        size: 15,
-                      ),
-                    ),
-                    Divider(
-                      color: Colors.grey,
-                    ),
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: Padding(
-                        padding: EdgeInsets.only(left: 20, bottom: 10),
-                        child: Text("Arrets"),
-                      ),
-                    ),
-                    Trajectoire(),
-                    Trajectoire(),
+                    // const ListTile(
+                    //   leading: Icon(Icons.map),
+                    //   title: Text("Voir la carte"),
+                    //   subtitle: Text("12 arrets"),
+                    //   trailing: Icon(
+                    //     Icons.arrow_forward_ios,
+                    //     size: 15,
+                    //   ),
+                    // ),
+                    // Divider(
+                    //   color: Colors.grey,
+                    // ),
                   ],
                 ),
               )
@@ -301,26 +260,7 @@ class TicketDetails extends StatelessWidget {
                     //color: Colors.grey,
                     alignment: Alignment.centerLeft,
                     padding: const EdgeInsets.only(left: 20),
-                    child: RichText(
-                      text: TextSpan(
-                        text: "Prix pour 2 places\n",
-                        style: TextStyle(
-                          color: Colors.grey.shade500,
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold,
-                        ),
-                        children: [
-                          TextSpan(
-                            text: "80.500 Fc",
-                            style: TextStyle(
-                              color: Colors.grey.shade800,
-                              fontSize: 25,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
+                    child: getDetails("${e['idBoutique']}"),
                   ),
                 ),
                 Expanded(
@@ -329,7 +269,7 @@ class TicketDetails extends StatelessWidget {
                     onTap: () {
                       //
                       print("Click...");
-                      showSimpleModal(TicketQrCode(), context);
+                      showSimpleModal(TicketQrCode(e), context);
                     },
                     child: Container(
                       margin: const EdgeInsets.all(5),
@@ -353,9 +293,92 @@ class TicketDetails extends StatelessWidget {
       ),
     );
   }
+
+  //
+  Widget getDetails(String idPartenaire) {
+    print(idPartenaire);
+    return FutureBuilder(
+        future: paiementController.getCompanie(idPartenaire),
+        builder: (c, t) {
+          if (t.hasData) {
+            Map d = t.data as Map;
+            return RichText(
+              text: TextSpan(
+                text: "Tajet effectué avec\n",
+                style: TextStyle(
+                  color: Colors.grey.shade500,
+                  fontSize: 15,
+                  fontWeight: FontWeight.bold,
+                ),
+                children: [
+                  TextSpan(
+                    text: "${d['nom']}",
+                    style: TextStyle(
+                      color: Colors.grey.shade800,
+                      fontSize: 25,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
+            );
+          } else if (t.hasError) {
+            return Container();
+          }
+          return Container();
+        });
+  }
+
+  //
+  String getDate(String dateDepart) {
+    //
+    List date = dateDepart.split("-");
+    //
+    List semaine = [
+      "",
+      "Lun",
+      "Mar",
+      "Mer",
+      "Jeu",
+      "Ven",
+      "Sam",
+      "Dim",
+    ];
+    //
+    List mois = [
+      "",
+      "Jen",
+      "Fev",
+      "Mar",
+      "Avr",
+      "Mai",
+      "Juin",
+      "Juil",
+      "Aout",
+      "Sep",
+      "Oct",
+      "Nom",
+      "Dec",
+    ];
+    //
+    DateTime d = DateTime(
+      int.parse(date[2]),
+      int.parse(date[1]),
+      int.parse(date[0]),
+    );
+    //
+    String jour = semaine[d.weekday];
+    String moi = mois[d.month];
+    //DateUtils.getDaysInMonth(widget.annee, widget.mois);
+    //
+    return "$jour. ${d.day} $moi";
+  }
 }
 
 class TicketQrCode extends StatelessWidget {
+  Map e;
+  TicketQrCode(this.e);
+  //
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -467,12 +490,16 @@ class TicketQrCode extends StatelessWidget {
             ),
           ),
           Container(
-            height: Get.size.height / 2,
+            height: Get.size.height / 1.5,
             width: Get.size.width / 1.2,
             alignment: Alignment.center,
-            child: const Icon(
-              CupertinoIcons.qrcode_viewfinder,
-              size: 250,
+            child: BarcodeWidget(
+              barcode: Barcode.qrCode(
+                errorCorrectLevel: BarcodeQRCorrectionLevel.high,
+              ),
+              data: '${e['unique_code']}',
+              width: 300,
+              height: 300,
             ),
           )
         ],

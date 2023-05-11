@@ -15,7 +15,15 @@ import 'arretDetails.dart';
 
 class Details extends StatelessWidget {
   Map e;
-  Details(this.e);
+  Details(this.e) {
+    Map p = e;
+    p['bus'] = "";
+    p['chauffeur'] = "";
+    p['receveur'] = "";
+    //p['bus'] = "";
+
+    print(p);
+  }
   @override
   Widget build(BuildContext context) {
     int prix = int.parse("${e['prix']}".split(".")[0]);
@@ -51,7 +59,7 @@ class Details extends StatelessWidget {
           body: ListView(
             children: [
               Container(
-                height: Get.size.height / 7,
+                height: Get.size.height / 9,
                 color: Colors.indigo.shade100,
                 child: Row(
                   children: [
@@ -118,6 +126,7 @@ class Details extends StatelessWidget {
                         alignment: Alignment.centerLeft,
                         child: Text(
                           "Départ : ${[
+                            "",
                             "Lundi",
                             "Mardi",
                             "Mercredi",

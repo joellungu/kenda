@@ -381,7 +381,7 @@ class _Recherche extends State<Recherche> {
                             ),
                             Padding(
                               padding:
-                                  const EdgeInsets.only(right: 10, bottom: 20),
+                                  const EdgeInsets.only(right: 10, bottom: 40),
                               child: Align(
                                 alignment: Alignment.centerRight,
                                 child: InkWell(

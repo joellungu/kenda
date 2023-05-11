@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:kenda/pages/historique/historique_controller.dart';
 import 'package:kenda/pages/recherche/infos.dart';
 import 'package:kenda/pages/reservations/details/details.dart';
@@ -19,7 +20,22 @@ import 'ticket_details.dart';
 
 class Historique extends GetView<HistoriqueController> {
   //
-  Historique();
+  var box = GetStorage();
+  //
+  List historiques = [];
+  //
+  Historique() {
+    //
+    List l = box.read("tickets") ?? [];
+    l.forEach((element) {
+      //
+      List x = element;
+      x.forEach((j) {
+        historiques.add(j);
+      });
+    });
+    //print(l[0]);
+  }
   //
   @override
   Widget build(BuildContext context) {
@@ -135,6 +151,8 @@ class Historique extends GetView<HistoriqueController> {
           SliverList(
             delegate: SliverChildBuilderDelegate(
               (BuildContext context, int index) {
+                Map e = historiques[index];
+                //
                 return Container(
                   height: 255,
                   //color: Colors.grey.shade300,
@@ -148,170 +166,93 @@ class Historique extends GetView<HistoriqueController> {
                             //color: Colors.transparent,
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10)),
-                            child: SizedBox(
-                              //color: index.isOdd ? Colors.white : Colors.black12,
-                              height: 250.0,
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Expanded(
-                                    flex: 2,
-                                    child: Row(
-                                      children: [
-                                        Container(
-                                          alignment: Alignment.center,
-                                          child: Text(
-                                            "Kinashas, Matadi kibala ",
-                                            style: TextStyle(
-                                              fontSize: 13,
-                                              fontWeight: FontWeight.w500,
-                                              color: Colors.black,
-                                            ),
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding: EdgeInsets.only(top: 10),
-                                          child: Align(
-                                            alignment: Alignment.topCenter,
-                                            child: Icon(
-                                              Icons.arrow_forward,
-                                              size: 13,
-                                              color: Colors.black,
-                                            ),
-                                          ),
-                                        ),
-                                        Container(
-                                          alignment: Alignment.center,
-                                          //color: Colors.green,
-                                          child: Text(
-                                            " Kongo central, Boma",
-                                            style: TextStyle(
-                                              fontSize: 13,
-                                              fontWeight: FontWeight.w500,
-                                              color: Colors.black,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  Container(
-                                    color: Colors.grey.shade300,
-                                    height: 1,
-                                  ),
-                                  Expanded(
-                                    flex: 7,
-                                    child: InkWell(
-                                      onTap: () {
-                                        //
-                                        Get.to(TicketDetails());
-                                      },
+                            child: InkWell(
+                              onTap: () {
+                                //
+                                Get.to(TicketDetails(e));
+                                //
+                              },
+                              child: SizedBox(
+                                //color: index.isOdd ? Colors.white : Colors.black12,
+                                height: 250.0,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    Expanded(
+                                      flex: 2,
                                       child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
                                         children: [
                                           Container(
                                             alignment: Alignment.center,
-                                            color: Colors.transparent,
-                                            width: 50,
-                                            child: ClipPath(
-                                              clipper: OsIcons(),
-                                              child: Container(
-                                                height: 120,
-                                                width: 50,
-                                                color: Colors.grey,
-                                                alignment: Alignment.topCenter,
-                                                child: AnimatedContainer(
-                                                  height: 120,
-                                                  width: 50,
-                                                  color: Colors.green.shade700,
-                                                  duration: const Duration(
-                                                      seconds: 3),
-                                                ),
+                                            child: Text(
+                                              " ${e['itinerance']}",
+                                              style: TextStyle(
+                                                fontSize: 17,
+                                                fontWeight: FontWeight.w500,
+                                                color: Colors.black,
                                               ),
                                             ),
                                           ),
-                                          Expanded(
-                                            flex: 1,
-                                            child: Container(
-                                              padding: const EdgeInsets.only(
-                                                  bottom: 10, top: 7),
-                                              child: Column(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                children: [
-                                                  Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment.start,
-                                                    children: [
-                                                      Text(
-                                                        "15h:30",
-                                                        style: TextStyle(
-                                                          fontSize: 20,
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                        ),
-                                                      ),
-                                                      SizedBox(
-                                                        width: 20,
-                                                      ),
-                                                      Text(
-                                                        "comment tu vas ?",
-                                                        style: TextStyle(
-                                                          fontSize: 19,
-                                                          fontWeight:
-                                                              FontWeight.w700,
-                                                          color: Colors
-                                                              .grey.shade900,
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment.start,
-                                                    children: [
-                                                      Text(
-                                                        "19h:30",
-                                                        style: TextStyle(
-                                                          fontSize: 20,
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                        ),
-                                                      ),
-                                                      SizedBox(
-                                                        width: 20,
-                                                      ),
-                                                      Text(
-                                                        "comment tu vas ?",
-                                                        style: TextStyle(
-                                                          fontSize: 19,
-                                                          fontWeight:
-                                                              FontWeight.w700,
-                                                          color: Colors
-                                                              .grey.shade900,
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ],
+                                          Container(
+                                            alignment: Alignment.center,
+                                            child: Text(
+                                              "Date ${e['dateDepart']} ",
+                                              style: TextStyle(
+                                                fontSize: 17,
+                                                fontWeight: FontWeight.w500,
+                                                color: Colors.black,
                                               ),
                                             ),
                                           ),
                                         ],
                                       ),
                                     ),
-                                  ),
-                                  Container(
-                                    color: Colors.grey.shade300,
-                                    height: 1,
-                                  ),
-                                  Expanded(
-                                    flex: 3,
-                                    child: InkWell(
-                                      onTap: () {
-                                        //
-                                        showSimpleModal(Infos({}), context);
-                                      },
+                                    Container(
+                                      color: Colors.grey.shade300,
+                                      height: 1,
+                                    ),
+                                    Expanded(
+                                      flex: 7,
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          const Padding(
+                                            padding: EdgeInsets.all(10),
+                                            child: Align(
+                                              alignment: Alignment.centerLeft,
+                                              child: Text(
+                                                "Réf",
+                                                style: TextStyle(
+                                                  fontSize: 15,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          Container(
+                                            padding:
+                                                const EdgeInsets.only(left: 20),
+                                            alignment: Alignment.centerLeft,
+                                            child: Text(
+                                              "${e['reference']}",
+                                              style: TextStyle(
+                                                fontSize: 25,
+                                                fontWeight: FontWeight.normal,
+                                              ),
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                    Container(
+                                      color: Colors.grey.shade300,
+                                      height: 1,
+                                    ),
+                                    Expanded(
+                                      flex: 3,
                                       child: Container(
                                         padding: const EdgeInsets.only(
                                           left: 15,
@@ -323,109 +264,42 @@ class Historique extends GetView<HistoriqueController> {
                                               MainAxisAlignment.spaceBetween,
                                           children: [
                                             Text(
-                                              "Durée 2h30m",
+                                              "Heure de départ ${e['heureDepart']}",
                                               style: TextStyle(
                                                 color: Colors.grey.shade800,
+                                                fontSize: 17,
                                               ),
                                             ),
-                                            Row(
-                                              children: [
-                                                const Text(
-                                                  "Info trajet ",
-                                                  style: TextStyle(
-                                                    fontWeight: FontWeight.w500,
-                                                  ),
-                                                ),
-                                                Icon(
-                                                  Icons.arrow_forward_ios,
-                                                  size: 13,
-                                                  color: Colors.grey.shade800,
-                                                )
-                                              ],
-                                            ),
+                                            // Row(
+                                            //   children: [
+                                            //     const Text(
+                                            //       "Info trajet ",
+                                            //       style: TextStyle(
+                                            //         fontWeight: FontWeight.w500,
+                                            //       ),
+                                            //     ),
+                                            //     Icon(
+                                            //       Icons.arrow_forward_ios,
+                                            //       size: 13,
+                                            //       color: Colors.grey.shade800,
+                                            //     )
+                                            //   ],
+                                            // ),
                                           ],
                                         ),
                                       ),
                                     ),
-                                  ),
-                                  Container(
-                                    height: 1,
-                                    color: Colors.grey.shade300,
-                                  ),
-                                  Expanded(
-                                    flex: 3,
-                                    child: Row(
-                                      children: [
-                                        Expanded(
-                                          flex: 2,
-                                          child: Container(
-                                            alignment: Alignment.center,
-                                            child: RichText(
-                                              text: TextSpan(
-                                                text: "11:50\n",
-                                                children: [
-                                                  TextSpan(
-                                                    text: "Départ",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 15,
-                                                      fontWeight:
-                                                          FontWeight.normal,
-                                                    ),
-                                                  )
-                                                ],
-                                                style: TextStyle(
-                                                  fontSize: 20,
-                                                  fontWeight: FontWeight.w900,
-                                                  color: Colors.black,
-                                                ),
-                                              ),
-                                            ),
-                                            // color: Colors.green,
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding: EdgeInsets.only(top: 20),
-                                          child: Align(
-                                            alignment: Alignment.topCenter,
-                                            child: Icon(
-                                              Icons.arrow_forward,
-                                              size: 13,
-                                              color: Colors.black,
-                                            ),
-                                          ),
-                                        ),
-                                        Expanded(
-                                          flex: 2,
-                                          child: Container(
-                                            alignment: Alignment.center,
-                                            //color: Colors.green,
-                                            child: RichText(
-                                              text: TextSpan(
-                                                text: "16:50\n",
-                                                children: [
-                                                  TextSpan(
-                                                    text: "Départ",
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 15,
-                                                      fontWeight:
-                                                          FontWeight.normal,
-                                                    ),
-                                                  ),
-                                                ],
-                                                style: TextStyle(
-                                                  fontSize: 20,
-                                                  fontWeight: FontWeight.w900,
-                                                  color: Colors.black,
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                        Expanded(
-                                          flex: 5,
-                                          child: Container(
+                                    Container(
+                                      height: 1,
+                                      color: Colors.grey.shade300,
+                                    ),
+                                    Expanded(
+                                      flex: 3,
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        children: [
+                                          Container(
                                             padding: EdgeInsets.only(
                                               top: 13,
                                             ),
@@ -436,20 +310,28 @@ class Historique extends GetView<HistoriqueController> {
                                                   MainAxisAlignment.end,
                                               children: [
                                                 const Text(
-                                                  "37000 Fc ",
+                                                  " Place N° ",
                                                   style: TextStyle(
                                                     fontSize: 20,
-                                                    fontWeight: FontWeight.w500,
+                                                    fontWeight:
+                                                        FontWeight.normal,
+                                                  ),
+                                                ),
+                                                Text(
+                                                  " ${e['emplacement']} ",
+                                                  style: const TextStyle(
+                                                    fontSize: 20,
+                                                    fontWeight: FontWeight.bold,
                                                   ),
                                                 ),
                                               ],
                                             ),
                                           ),
-                                        ),
-                                      ],
+                                        ],
+                                      ),
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
                             ),
                           ),
@@ -487,7 +369,7 @@ class Historique extends GetView<HistoriqueController> {
                   ),
                 );
               },
-              childCount: 2,
+              childCount: historiques.length,
             ),
           ),
         ],
