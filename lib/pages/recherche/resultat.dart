@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kenda/pages/recherche/infos.dart';
 import 'package:kenda/pages/reservations/details/details.dart';
+import 'package:kenda/utils/requetes.dart';
 import 'package:kenda/utils/utils.dart';
 import 'package:kenda/widgets/modal.dart';
 
@@ -205,6 +206,7 @@ class Resultat extends GetView<ResultatController> {
                               child: InkWell(
                                 onTap: () {
                                   //
+                                  //print(e['bus']);
                                   Get.to(Details(e));
                                 },
                                 child: Column(
@@ -220,7 +222,7 @@ class Resultat extends GetView<ResultatController> {
                                               child: RichText(
                                                 text: TextSpan(
                                                   text: "${dep[0]}:${dep[1]}\n",
-                                                  children: [
+                                                  children: const [
                                                     TextSpan(
                                                       text: "Départ",
                                                       style: TextStyle(
@@ -231,7 +233,7 @@ class Resultat extends GetView<ResultatController> {
                                                       ),
                                                     )
                                                   ],
-                                                  style: TextStyle(
+                                                  style: const TextStyle(
                                                     fontSize: 20,
                                                     fontWeight: FontWeight.w900,
                                                     color: Colors.black,
@@ -241,7 +243,7 @@ class Resultat extends GetView<ResultatController> {
                                               // color: Colors.green,
                                             ),
                                           ),
-                                          Padding(
+                                          const Padding(
                                             padding: EdgeInsets.only(top: 20),
                                             child: Align(
                                               alignment: Alignment.topCenter,
@@ -260,7 +262,7 @@ class Resultat extends GetView<ResultatController> {
                                               child: RichText(
                                                 text: TextSpan(
                                                   text: "${arr[0]}:${arr[1]}\n",
-                                                  children: [
+                                                  children: const [
                                                     TextSpan(
                                                       text: "Arrivé",
                                                       style: TextStyle(
@@ -325,8 +327,9 @@ class Resultat extends GetView<ResultatController> {
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceBetween,
                                           children: [
+                                            //12 Places disponible
                                             Text(
-                                              "12 Places disponible",
+                                              "",
                                               style: TextStyle(
                                                 color: Colors.grey.shade600,
                                                 fontWeight: FontWeight.w900,
@@ -334,7 +337,20 @@ class Resultat extends GetView<ResultatController> {
                                             ),
                                             Row(
                                               children: [
-                                                const Text("LOGO"),
+                                                Container(
+                                                  height: 50,
+                                                  width: 50,
+                                                  decoration: BoxDecoration(
+                                                    image: DecorationImage(
+                                                      image: NetworkImage(
+                                                          "${Requete.urlSt}/partenaires/profil.png?id=${e['idPartenaire']}"),
+                                                    ),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            25),
+                                                  ),
+                                                )
+                                                //const Text("LOGO"),
                                               ],
                                             ),
                                           ],

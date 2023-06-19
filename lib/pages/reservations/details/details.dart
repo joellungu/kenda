@@ -8,6 +8,7 @@ import 'package:kenda/pages/reservations/formulaire/formulaire.dart';
 import 'package:kenda/pages/reservations/infos_supp/infos_supplementaire.dart';
 import 'package:kenda/pages/reservations/paiement/paiement.dart';
 import 'package:kenda/pages/reservations/reservation.dart';
+import 'package:kenda/utils/requetes.dart';
 import 'package:kenda/widgets/carte_bus.dart';
 import 'package:kenda/widgets/modal.dart';
 
@@ -17,9 +18,9 @@ class Details extends StatelessWidget {
   Map e;
   Details(this.e) {
     Map p = e;
-    p['bus'] = "";
-    p['chauffeur'] = "";
-    p['receveur'] = "";
+    //p['bus'] = "";
+    //p['chauffeur'] = "";
+    //p['receveur'] = "";
     //p['bus'] = "";
 
     print(p);
@@ -196,7 +197,32 @@ class Details extends StatelessWidget {
                               right: 20,
                             ),
                             alignment: Alignment.centerRight,
-                            child: Text("Logo"),
+                            child: (e['logo'] != null)
+                                ? Container(
+                                    height: 50,
+                                    width: 50,
+                                    decoration: BoxDecoration(
+                                      image: DecorationImage(
+                                        image: NetworkImage(
+                                            "${Requete.urlSt}/partenaires/profil.png?id=${e['idPartenaire']}"),
+                                      ),
+                                      borderRadius: BorderRadius.circular(25),
+                                    ),
+                                  )
+                                : Container(
+                                    height: 50,
+                                    width: 50,
+                                    alignment: Alignment.center,
+                                    decoration: BoxDecoration(
+                                      //color: Colors.red,
+                                      borderRadius: BorderRadius.circular(25),
+                                    ),
+                                    child: const Icon(
+                                      Icons.photo_camera,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                            //Text("Logo"),
                             //color: Colors.blue,
                           ),
                         ),

@@ -68,6 +68,8 @@ class Reservation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     //
+    DateTime lelo = DateTime.now(); // Pour les départs d'aujourd'hui
+    //
     DateTime d1 = d;
     //
     DateTime d2 = d1.add(const Duration(days: 7));
@@ -114,6 +116,7 @@ class Reservation extends StatelessWidget {
           body: ListView(
             padding: const EdgeInsets.all(10),
             children: [
+              Horaire(e, lelo),
               Horaire(e, d1),
               Horaire(e, d2),
               Horaire(e, d3),

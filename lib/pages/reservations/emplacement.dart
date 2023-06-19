@@ -9,7 +9,8 @@ import 'reservation_controller.dart';
 class Emplacement extends StatefulWidget {
   List? l;
   Map? e;
-  Emplacement({super.key, this.l, this.e});
+  DateTime? date;
+  Emplacement({super.key, this.l, this.e, this.date});
 
   @override
   State<StatefulWidget> createState() {
@@ -68,7 +69,7 @@ class _Emplacement extends State<Emplacement> {
                         ),
                       ),
                     ],
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w900,
                       color: Colors.black,
@@ -76,7 +77,6 @@ class _Emplacement extends State<Emplacement> {
                   ),
                 ),
               ),
-
               //                           Text(
               //   "Info trajet",
               //   style: TextStyle(
@@ -90,56 +90,6 @@ class _Emplacement extends State<Emplacement> {
         ),
         const SizedBox(
           height: 10,
-        ),
-        Container(
-          height: 50,
-          padding: EdgeInsets.only(
-            right: 10,
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                children: [
-                  IconButton(
-                    onPressed: () {
-                      //
-                      //Get.back();
-                      //
-                    },
-                    icon: const Icon(
-                      CupertinoIcons.bus,
-                      size: 40,
-                    ),
-                  ),
-                  SizedBox(
-                    width: 15,
-                  ),
-                  RichText(
-                    text: TextSpan(
-                      text: "Transco Métro\n",
-                      children: [
-                        TextSpan(
-                          text: "vers Boma",
-                          style: TextStyle(
-                            color: Colors.grey.shade900,
-                            fontSize: 17,
-                            fontWeight: FontWeight.w300,
-                          ),
-                        ),
-                      ],
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.normal,
-                        color: Colors.grey.shade900,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              Text("LOGO")
-            ],
-          ),
         ),
         Expanded(
           flex: 1,
@@ -160,7 +110,7 @@ class _Emplacement extends State<Emplacement> {
                     "Veuillez selectionner une ou plusieurs places.",
                     colorText: Colors.white, backgroundColor: Colors.indigo);
               } else {
-                Get.to(Paiement(widget.e!));
+                Get.to(Paiement(widget.e!, widget.date));
               }
             },
             child: Padding(

@@ -77,14 +77,14 @@ class Profil extends StatelessWidget {
                       ),
                       ListTile(
                         leading: Icon(CupertinoIcons.mail),
-                        title: Text("Messages"),
+                        title: Text("Envoyer un commentaire"),
                         subtitle: Text("Aucun message"),
                       ),
                     ],
                   ),
                 ),
-                Divider(),
-                ListTile(
+                const Divider(),
+                const ListTile(
                   title: Text(
                     "Aide",
                     style: TextStyle(
@@ -98,11 +98,6 @@ class Profil extends StatelessWidget {
                   padding: EdgeInsets.only(left: 20),
                   child: Column(
                     children: const [
-                      ListTile(
-                        leading: Icon(Icons.chat_outlined),
-                        title: Text("Envoyer un commentaire"),
-                        subtitle: Divider(),
-                      ),
                       ListTile(
                         leading: Icon(Icons.help_outline_outlined),
                         title: Text("Aide et FAQ"),

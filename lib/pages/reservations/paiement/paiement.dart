@@ -13,7 +13,8 @@ import 'paiement_controller.dart';
 class Paiement extends StatefulWidget {
   //
   Map e;
-  Paiement(this.e) {
+  DateTime? date;
+  Paiement(this.e, this.date) {
     Map x = e;
     x["chauffeur"] = "";
     x["embarqueur"] = "";
@@ -338,15 +339,15 @@ class _Paiement extends State<Paiement> {
                                 "datePaiement": "${d.day}/${d.month}/${d.year}",
                                 "emplacement": element,
                                 "status": 0,
-                                "prix": widget.e['prix'] *
-                                    reservationController.places.length,
+                                "prix": widget.e['prix'],
                                 "devise": "CDF",
                                 "phone": "243${numero.text}",
                                 "reference": "${widget.e['reference']}",
                                 "ref": ref,
                                 "unique_code": getReference(),
                                 "idBoutique": "${widget.e['idPartenaire']}",
-                                "dateDepart": "${widget.e['dates']}",
+                                "dateDepart":
+                                    "${widget.date?.day}-${widget.date?.month}-${widget.date?.year}",
                                 "heureDepart": "${widget.e['heureDepart']}",
                               });
                             });

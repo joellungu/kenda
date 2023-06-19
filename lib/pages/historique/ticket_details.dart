@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:barcode_widget/barcode_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -11,6 +13,7 @@ import 'package:kenda/pages/reservations/infos_supp/infos_supplementaire_load.da
 import 'package:kenda/pages/reservations/paiement/paiement.dart';
 import 'package:kenda/pages/reservations/paiement/paiement_controller.dart';
 import 'package:kenda/pages/reservations/reservation.dart';
+import 'package:kenda/utils/requetes.dart';
 import 'package:kenda/widgets/carte_bus.dart';
 import 'package:kenda/widgets/ma_carte.dart';
 import 'package:kenda/widgets/modal.dart';
@@ -110,7 +113,7 @@ class TicketDetails extends StatelessWidget {
                         alignment: Alignment.center,
                         child: Icon(
                           CupertinoIcons.qrcode_viewfinder,
-                          size: 130,
+                          size: 100,
                         ),
                       ),
                     )
@@ -118,7 +121,7 @@ class TicketDetails extends StatelessWidget {
                 ),
               ),
               Container(
-                height: Get.size.height / 8,
+                height: Get.size.height / 7,
                 //color: Colors.blue,
                 decoration: BoxDecoration(
                   border: Border(
@@ -377,7 +380,13 @@ class TicketDetails extends StatelessWidget {
 
 class TicketQrCode extends StatelessWidget {
   Map e;
-  TicketQrCode(this.e);
+  Map ticket = {};
+  TicketQrCode(this.e) {
+    ticket = {
+      "idBoutique": e["idBoutique"],
+      "unique_code": e["unique_code"],
+    };
+  }
   //
   @override
   Widget build(BuildContext context) {
@@ -441,7 +450,7 @@ class TicketQrCode extends StatelessWidget {
           ),
           Container(
             height: 50,
-            padding: EdgeInsets.only(
+            padding: const EdgeInsets.only(
               right: 10,
             ),
             child: Row(
@@ -460,32 +469,34 @@ class TicketQrCode extends StatelessWidget {
                         size: 40,
                       ),
                     ),
-                    SizedBox(
-                      width: 15,
-                    ),
-                    RichText(
-                      text: TextSpan(
-                        text: "Transco Métro\n",
-                        children: [
-                          TextSpan(
-                            text: "vers Boma",
-                            style: TextStyle(
-                              color: Colors.grey.shade900,
-                              fontSize: 17,
-                              fontWeight: FontWeight.w300,
-                            ),
-                          ),
-                        ],
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.normal,
-                          color: Colors.grey.shade900,
-                        ),
-                      ),
-                    ),
                   ],
                 ),
-                Text("LOGO")
+                //Text("LOGO")
+                (e['logo'] != null)
+                    ? Container(
+                        height: 50,
+                        width: 50,
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: NetworkImage(
+                                "${Requete.urlSt}/partenaires/profil.png?id=${e['idPartenaire']}"),
+                          ),
+                          borderRadius: BorderRadius.circular(25),
+                        ),
+                      )
+                    : Container(
+                        height: 50,
+                        width: 50,
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                          //color: Colors.red,
+                          borderRadius: BorderRadius.circular(25),
+                        ),
+                        child: const Icon(
+                          Icons.photo_camera,
+                          color: Colors.white,
+                        ),
+                      )
               ],
             ),
           ),

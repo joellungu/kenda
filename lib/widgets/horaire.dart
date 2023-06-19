@@ -24,12 +24,12 @@ class Horaire extends StatelessWidget {
         //
         height: 130.0,
         child: FutureBuilder(
-          future: reservationController.getHoraire(
-              "${e['idPartenaire']}", "${date.day}-${date.month}-${date.year}"),
+          future: reservationController.getHoraire("${e['idPartenaire']}",
+              "${date.day}-${date.month}-${date.year}", 0),
           builder: (c, t) {
             if (t.hasData) {
               List l = t.data as List;
-              print("${e['bus']}");
+              //print("::: ${e}");
               return Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -42,6 +42,7 @@ class Horaire extends StatelessWidget {
                           Emplacement(
                             l: l,
                             e: e,
+                            date: date,
                           ),
                           context,
                         );
@@ -69,7 +70,18 @@ class Horaire extends StatelessWidget {
                                       color: Colors.black,
                                     ),
                                   ),
-                                  const Text("LOGO"),
+                                  Container(
+                                    height: 50,
+                                    width: 50,
+                                    decoration: BoxDecoration(
+                                      image: DecorationImage(
+                                        image: NetworkImage(
+                                            "${Requete.urlSt}/partenaires/profil.png?id=${e['idPartenaire']}"),
+                                      ),
+                                      borderRadius: BorderRadius.circular(25),
+                                    ),
+                                  )
+                                  //const Text("LOGO"),
                                   // Text(
                                   //   "$prix Fc ",
                                   //   style: TextStyle(

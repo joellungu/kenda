@@ -68,9 +68,14 @@ class Buss extends StatelessWidget {
         (index) {
           bool choix = false;
           //
-          l.forEach((element) {
+          for (var element in l) {
             choix = element['emplacement'] == index;
-          });
+            if (choix) {
+              print("choisi: $choix = $index = ${element['emplacement']}");
+              break;
+            }
+          }
+          ;
           //
           if (choix) {
             return Card(
@@ -104,6 +109,7 @@ class Buss extends StatelessWidget {
               },
               child: Obx(
                 () => Container(
+                  margin: const EdgeInsets.all(3),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
                     border: Border.all(

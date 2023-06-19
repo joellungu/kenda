@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kenda/pages/reservations/paiement/paiement_controller.dart';
+import 'package:kenda/utils/requetes.dart';
 
 class InfoSupplementaireLoad extends StatelessWidget {
   String? id;
@@ -124,7 +125,32 @@ class InfoSupplementaireLoad extends StatelessWidget {
                             ),
                           ],
                         ),
-                        Text("LOGO")
+                        (details['logo'] != null)
+                            ? Container(
+                                height: 50,
+                                width: 50,
+                                decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                    image: NetworkImage(
+                                        "${Requete.urlSt}/partenaires/profil.png?id=${details['idPartenaire']}"),
+                                  ),
+                                  borderRadius: BorderRadius.circular(25),
+                                ),
+                              )
+                            : Container(
+                                height: 50,
+                                width: 50,
+                                alignment: Alignment.center,
+                                decoration: BoxDecoration(
+                                  //color: Colors.red,
+                                  borderRadius: BorderRadius.circular(25),
+                                ),
+                                child: const Icon(
+                                  Icons.photo_camera,
+                                  color: Colors.white,
+                                ),
+                              )
+                        //Text("LOGO")
                       ],
                     ),
                   ),

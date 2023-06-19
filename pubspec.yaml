@@ -40,20 +40,20 @@ dependencies:
   http:
   google_fonts: ^3.0.1
   share_plus: ^4.1.0
-  accordion: ^2.5.1
-  jwt_decoder: ^2.0.1
-  dart_jsonwebtoken: ^2.4.2
+  #accordion: ^2.5.1
+  #jwt_decoder: ^2.0.1
+  #dart_jsonwebtoken: ^2.4.2
   connectivity_plus: ^2.3.6+1
   flutter_widget_from_html: ^0.8.5
   fl_country_code_picker: ^0.0.3
-  firebase_messaging: ^13.0.1
-  geolocator: ^9.0.1
+  #firebase_messaging: ^13.0.1
+  #geolocator: ^9.0.1
   simple_animations: ^5.0.0+2
-  blur: ^3.1.0
+  #blur: ^3.1.0
   web_socket_channel: ^2.2.0
   random_string: ^2.3.1
   timelines: ^0.1.0
-  flutter_osm_plugin: ^0.42.0
+  #flutter_osm_plugin: ^0.42.0
   uuid:
   barcode_widget:
 

@@ -151,7 +151,33 @@ class _Infos extends State<Infos> {
                   ),
                 ],
               ),
-              Text("LOGO")
+              (widget.details['logo'] != null)
+                  ? Container(
+                      height: 50,
+                      width: 50,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: NetworkImage(
+                              "${Requete.urlSt}/partenaires/profil.png?id=${widget.details['idPartenaire']}"),
+                        ),
+                        borderRadius: BorderRadius.circular(25),
+                      ),
+                    )
+                  : Container(
+                      height: 50,
+                      width: 50,
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        //color: Colors.red,
+                        borderRadius: BorderRadius.circular(25),
+                      ),
+                      child: const Icon(
+                        Icons.photo_camera,
+                        color: Colors.white,
+                      ),
+                    )
+
+              //Text("LOGO")
             ],
           ),
         ),
