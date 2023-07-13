@@ -127,14 +127,6 @@ class _Emplacement extends State<Emplacement> {
                   //right: 20,
                   bottom: 2,
                 ),
-                child: Text(
-                  "Continuer".tr,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.normal,
-                    fontSize: 15,
-                  ),
-                ),
                 decoration: BoxDecoration(
                   color: Colors.indigo.shade900,
                   borderRadius: BorderRadius.circular(10),
@@ -143,6 +135,14 @@ class _Emplacement extends State<Emplacement> {
                   //   end: Alignment.centerRight,
                   //   colors: <Color>[Colors.yellow.shade700, Colors.black],
                   // ),
+                ),
+                child: Text(
+                  "Continuer".tr,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.normal,
+                    fontSize: 15,
+                  ),
                 ),
               ),
             ),

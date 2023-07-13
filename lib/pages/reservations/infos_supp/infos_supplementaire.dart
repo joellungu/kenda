@@ -115,31 +115,43 @@ class InfoSupplementaire extends StatelessWidget {
                     ),
                   ],
                 ),
-                (details!['logo'] != null)
-                    ? Container(
-                        height: 50,
-                        width: 50,
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                            image: NetworkImage(
-                                "${Requete.urlSt}/partenaires/profil.png?id=${details!['idPartenaire']}"),
-                          ),
-                          borderRadius: BorderRadius.circular(25),
-                        ),
-                      )
-                    : Container(
-                        height: 50,
-                        width: 50,
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                          //color: Colors.red,
-                          borderRadius: BorderRadius.circular(25),
-                        ),
-                        child: const Icon(
-                          Icons.photo_camera,
-                          color: Colors.white,
-                        ),
-                      )
+                Container(
+                  height: 50,
+                  width: 50,
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: NetworkImage(
+                          "${Requete.urlSt}/partenaires/profil.png?id=${details!['idPartenaire']}"),
+                    ),
+                    borderRadius: BorderRadius.circular(25),
+                  ),
+                )
+                // (details!['logo'] != null)
+                //     ? Container(
+                //         height: 50,
+                //         width: 50,
+                //         decoration: BoxDecoration(
+                //           image: DecorationImage(
+                //             image: NetworkImage(
+                //                 "${Requete.urlSt}/partenaires/profil.png?id=${details!['idPartenaire']}"),
+                //           ),
+                //           borderRadius: BorderRadius.circular(25),
+                //         ),
+                //       )
+                //     : Container(
+                //         height: 50,
+                //         width: 50,
+                //         alignment: Alignment.center,
+                //         decoration: BoxDecoration(
+                //           //color: Colors.red,
+                //           borderRadius: BorderRadius.circular(25),
+                //         ),
+                //         child: const Icon(
+                //           Icons.photo_camera,
+                //           color: Colors.white,
+                //         ),
+                //       )
+
                 //Text("LOGO")
               ],
             ),
@@ -215,7 +227,27 @@ class InfoSupplementaire extends StatelessWidget {
                         subtitle:
                             Text("${details!['bus']['caracteristiques']}"),
                       ),
+                      ListTile(
+                        leading: Icon(CupertinoIcons.wrench_fill),
+                        title: Text("Numéro de plaque"),
+                        subtitle: Text("${details!['bus']['numeroPlaque']}"),
+                      ),
                       Divider(),
+                      details!['bus']['logo'] != null
+                          ? Container(
+                              height: Get.size.height / 3.5,
+                              width: Get.size.width / 1.1,
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                  image: NetworkImage(
+                                      "${Requete.url}/bus/bus.png?id=${details!['bus']['id']}"),
+                                ),
+                              ),
+                            )
+                          : const Icon(
+                              CupertinoIcons.bus,
+                              size: 40,
+                            ),
                     ],
                   ),
                 )

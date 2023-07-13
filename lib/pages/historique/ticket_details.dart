@@ -227,18 +227,38 @@ class TicketDetails extends StatelessWidget {
                         size: 15,
                       ),
                     ),
-                    // const ListTile(
-                    //   leading: Icon(Icons.map),
-                    //   title: Text("Voir la carte"),
-                    //   subtitle: Text("12 arrets"),
-                    //   trailing: Icon(
-                    //     Icons.arrow_forward_ios,
-                    //     size: 15,
-                    //   ),
-                    // ),
-                    // Divider(
-                    //   color: Colors.grey,
-                    // ),
+                    ListTile(
+                      leading: const Icon(Icons.person),
+                      title: const Text("Nom"),
+                      subtitle: Text("${e['infoPersonnel']['nom']}"),
+                    ),
+                    const Divider(
+                      color: Colors.grey,
+                    ),
+                    ListTile(
+                      leading: const Icon(Icons.phone),
+                      title: const Text("Téléphone"),
+                      subtitle: Text("${e['infoPersonnel']['telephone']}"),
+                    ),
+                    const Divider(
+                      color: Colors.grey,
+                    ),
+                    ListTile(
+                      leading: const Icon(Icons.location_on),
+                      title: const Text("Adresse"),
+                      subtitle: Text("${e['infoPersonnel']['adresse']}"),
+                    ),
+                    const Divider(
+                      color: Colors.grey,
+                    ),
+                    ListTile(
+                      leading: const Icon(Icons.person),
+                      title: const Text("Sexe"),
+                      subtitle: Text("${e['infoPersonnel']['sexe']}"),
+                    ),
+                    const Divider(
+                      color: Colors.grey,
+                    ),
                   ],
                 ),
               )

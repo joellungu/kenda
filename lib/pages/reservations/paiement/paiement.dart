@@ -332,12 +332,15 @@ class _Paiement extends State<Paiement> {
                              * Le contenu non pas le contenant...
                              */
                             List le = [];
-                            reservationController.places.forEach((element) {
+                            for (int i = 0;
+                                i < reservationController.places.length;
+                                i++) {
+                              //
                               le.add({
                                 "itinerance": "${widget.e['troncons']}",
                                 //"idAgent": "",
                                 "datePaiement": "${d.day}/${d.month}/${d.year}",
-                                "emplacement": element,
+                                "emplacement": i,
                                 "status": 0,
                                 "prix": widget.e['prix'],
                                 "devise": "CDF",
@@ -349,8 +352,14 @@ class _Paiement extends State<Paiement> {
                                 "dateDepart":
                                     "${widget.date?.day}-${widget.date?.month}-${widget.date?.year}",
                                 "heureDepart": "${widget.e['heureDepart']}",
+                                "infoPersonnel":
+                                    reservationController.places[i],
                               });
-                            });
+                            }
+                            // reservationController.places.forEach((element) {
+
+                            // });
+
                             //Je fais le test ici ...
                             print(le);
                             send(le);

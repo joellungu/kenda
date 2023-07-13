@@ -116,7 +116,7 @@ class Reservation extends StatelessWidget {
           body: ListView(
             padding: const EdgeInsets.all(10),
             children: [
-              Horaire(e, lelo),
+              //Horaire(e, lelo),
               Horaire(e, d1),
               Horaire(e, d2),
               Horaire(e, d3),

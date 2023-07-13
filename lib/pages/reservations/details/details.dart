@@ -197,31 +197,31 @@ class Details extends StatelessWidget {
                               right: 20,
                             ),
                             alignment: Alignment.centerRight,
-                            child: (e['logo'] != null)
-                                ? Container(
-                                    height: 50,
-                                    width: 50,
-                                    decoration: BoxDecoration(
-                                      image: DecorationImage(
-                                        image: NetworkImage(
-                                            "${Requete.urlSt}/partenaires/profil.png?id=${e['idPartenaire']}"),
-                                      ),
-                                      borderRadius: BorderRadius.circular(25),
-                                    ),
-                                  )
-                                : Container(
-                                    height: 50,
-                                    width: 50,
-                                    alignment: Alignment.center,
-                                    decoration: BoxDecoration(
-                                      //color: Colors.red,
-                                      borderRadius: BorderRadius.circular(25),
-                                    ),
-                                    child: const Icon(
-                                      Icons.photo_camera,
-                                      color: Colors.white,
-                                    ),
-                                  ),
+                            // child: (e['logo'] != null)
+                            //     ? Container(
+                            //         height: 50,
+                            //         width: 50,
+                            //         decoration: BoxDecoration(
+                            //           image: DecorationImage(
+                            //             image: NetworkImage(
+                            //                 "${Requete.urlSt}/partenaires/profil.png?id=${e['idPartenaire']}"),
+                            //           ),
+                            //           borderRadius: BorderRadius.circular(25),
+                            //         ),
+                            //       )
+                            //     : Container(
+                            //         height: 50,
+                            //         width: 50,
+                            //         alignment: Alignment.center,
+                            //         decoration: BoxDecoration(
+                            //           //color: Colors.red,
+                            //           borderRadius: BorderRadius.circular(25),
+                            //         ),
+                            //         child: const Icon(
+                            //           Icons.photo_camera,
+                            //           color: Colors.white,
+                            //         ),
+                            //       ),
                             //Text("Logo"),
                             //color: Colors.blue,
                           ),

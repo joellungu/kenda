@@ -105,7 +105,7 @@ class InfoSupplementaireLoad extends StatelessWidget {
                             ),
                             RichText(
                               text: TextSpan(
-                                text: "${details!['nom']}\n", //Transco Métro
+                                text: "${details['nom']}\n", //Transco Métro
                                 children: [
                                   TextSpan(
                                     text: "vers $arrive",
